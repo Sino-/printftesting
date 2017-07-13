@@ -103,7 +103,7 @@ void	reset_env(t_env *env)
 void printPercent(t_env *env, const char * restrict format)
 {
 	while (format[(env->curr)] == '%')
-    {
+	{
 		write(1, "\%", 1);
 		(env->bytes)++;
 		(env->curr)++;
@@ -173,16 +173,32 @@ void printUNums(t_env *env, va_list ap, int base, int upperCase)
 
 void printp(t_env *env, va_list ap)
 {
-	write(1, "0x7fff", 6);
-	(env->bytes) += 6;
-	printNums(env, ap, 16, 0);
+	unsigned int d;
+	char *str;
+	int bytes = 12;
+
+	d = va_arg(ap, unsigned int);
+	str = ft_itoa_Ubase(d, 16, 0);
+	write(1, "0x7", 3);
+	(env->bytes)+=3;
+	while ((int)sizeof(str) < --bytes)
+	{
+		write(1, "f", 1);
+		(env->bytes)++;
+	}
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
 }
 
 
 void parseFlag(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
-    if (format[(env->curr)] == '%')
+	if (format[(env->curr)] == '%')
 		printPercent(env, format);
 	else if (format[(env->curr)] == 's')
 		prints(env, ap);
@@ -205,10 +221,10 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 		printNums(env, ap, 16, 0);
 	else if (format[(env->curr)] == 'X')
 		printNums(env, ap, 16, 1);
-    else if (format[(env->curr)] == 'c')
+	else if (format[(env->curr)] == 'c')
 		printc(env, ap);
-    else if (format[(env->curr)] == 'C')
-    	printC(env, ap);
+	else if (format[(env->curr)] == 'C')
+		printC(env, ap);
 
 
 }
@@ -222,27 +238,29 @@ int ft_printf(const char * restrict format, ...)
 	env.curr		= 0;
 	env.bytes		= 0;
   	reset_env(&env);
-    while (format[(env.curr)])
-    {
-        if (format[(env.curr)] == '%')
-		{
-			if(format[(env.curr + 1)] == ' ')
-			{
-				while (format[(env.curr + 1)] == ' ')
-					(env.curr)++;   			
-				write(1, " ", 1);
-				(env.bytes)++;
+	while (format[(env.curr)])
+	{
+		 if (format[(env.curr)] == '%')
+		 {
+			 if(format[(env.curr + 1)] == ' ')
+			 {
+				 while (format[(env.curr + 1)] == ' ')
+					 (env.curr)++;
+				 write(1, " ", 1);
+				 (env.bytes)++;
 
-			}
-            parseFlag(&env, format, ap);
-        }
+			 }
+			 parseFlag(&env, format, ap);
+		 }
 		else
-        {
-            write(1, &(format[(env.curr)]), 1);
-        	(env.bytes)++;
-        	(env.curr)++;
-        }
-        
-    }
+		{
+			write(1, &(format[(env.curr)]), 1);
+			(env.bytes)++;
+			(env.curr)++;
+		}
+		
+	}
 	return (env.bytes);
 }
+
+
