@@ -131,7 +131,7 @@ void printC(t_env *env, va_list ap)
 void printSpace(t_env *env, va_list ap, const char * restrict format)
 {
 
-	while (*format == ' ')
+	while (format[(env->curr)] == ' ')
 		(env->curr)++;
 	write(1, " ", 1);
 	(env->bytes)++;
