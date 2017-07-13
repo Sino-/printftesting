@@ -191,7 +191,8 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 		printp(env, ap);
 	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
 		printNums(env, ap, 10, 0);
-	// else if (format[(env->curr)] == 'D')
+	else if (format[(env->curr)] == 'D')
+		printUNums(env, ap, 10, 0);
 // else if (format[(env->curr)] == 'i')  implemented above with 'd'
 	else if (format[(env->curr)] == 'o')
 		printNums(env, ap, 8, 0);
