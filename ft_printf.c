@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 /*
 **	Allowed functions:
@@ -128,15 +128,6 @@ void printC(t_env *env, va_list ap)
 }
 
 
-void printSpace(t_env *env, va_list ap, const char * restrict format)
-{
-
-	while (format[(env->curr)] == ' ')
-		(env->curr)++;
-	write(1, " ", 1);
-	(env->bytes)++;
-}
-
 void prints(t_env *env, va_list ap)
 {
 	char *str;
@@ -191,12 +182,9 @@ void printp(t_env *env, va_list ap)
 void parseFlag(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
-    
     if (format[(env->curr)] == '%')
 		printPercent(env, format);
-    if (format[(env->curr)] == ' ')
-    	printSpace(env, ap, format);
-    if (format[(env->curr)] == 's')
+	else if (format[(env->curr)] == 's')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
 	else if (format[(env->curr)] == 'p')
@@ -222,6 +210,31 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
     else if (format[(env->curr)] == 'C')
     	printC(env, ap);
 
+
+}
+
+int ft_printf(const char * restrict format, ...)
+{
+	t_env env;
+	va_list ap;
+	va_start(ap, format);
+
+	env.curr		= 0;
+	env.bytes		= 0;
+  	reset_env(&env);
+    while (format[(env.curr)])
+    {
+        if (format[(env.curr)] == '%')
+            parseFlag(&env, format, ap);
+        else
+        {
+            write(1, &(format[(env.curr)]), 1);
+        	(env.bytes)++;
+        	(env.curr)++;
+        }
+        
+    }
+	return (env.bytes);
 }
 
 int ft_printf(const char * restrict format, ...)
