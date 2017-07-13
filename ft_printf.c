@@ -192,34 +192,34 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
     
-    if (format[(env->curr)] == ' ')
-    	printSpace(env, ap, format);
     if (format[(env->curr)] == '%')
 		printPercent(env, format);
-	if (format[(env->curr)] == 's')
+    if (format[(env->curr)] == ' ')
+    	printSpace(env, ap, format);
+    if (format[(env->curr)] == 's')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
-	if (format[(env->curr)] == 'p')
+	else if (format[(env->curr)] == 'p')
 		printp(env, ap);
-	if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
+	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
 		printNums(env, ap, 10, 0);
-	if (format[(env->curr)] == 'D')
+	else if (format[(env->curr)] == 'D')
 		printUNums(env, ap, 10, 0);
 // else if (format[(env->curr)] == 'i')  implemented above with 'd'
-	if (format[(env->curr)] == 'o')
+	else if (format[(env->curr)] == 'o')
 		printNums(env, ap, 8, 0);
-	if (format[(env->curr)] == 'O')
+	else if (format[(env->curr)] == 'O')
 		printUNums(env, ap, 8, 0);
-	if (format[(env->curr)] == 'u')
+	else if (format[(env->curr)] == 'u')
 		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
-	if (format[(env->curr)] == 'x')
+	else if (format[(env->curr)] == 'x')
 		printNums(env, ap, 16, 0);
-	if (format[(env->curr)] == 'X')
+	else if (format[(env->curr)] == 'X')
 		printNums(env, ap, 16, 1);
-    if (format[(env->curr)] == 'c')
+    else if (format[(env->curr)] == 'c')
 		printc(env, ap);
-    if (format[(env->curr)] == 'C')
+    else if (format[(env->curr)] == 'C')
     	printC(env, ap);
 
 }
@@ -247,3 +247,4 @@ int ft_printf(const char * restrict format, ...)
     }
 	return (env.bytes);
 }
+
