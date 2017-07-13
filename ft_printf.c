@@ -1,4 +1,4 @@
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /*
 **	Allowed functions:
@@ -141,6 +141,19 @@ void prints(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+void prints(t_env *env, va_list ap)
+{
+	char *str;
+
+	str = va_arg(ap, char *);
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
+}
+
 void printNums(t_env *env, va_list ap, int base, int upperCase)
 {
 	int d;
@@ -148,12 +161,12 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 
 	d = va_arg(ap, int);
 	str = ft_itoa_base(d, base, upperCase);
-	while (*str)
-	{
-		write(1, str++, 1);
-		(env->bytes)++;
-	}
+	while (*str == ' ')
+		str++;
+	write(1, " ", 1);
+	(env->bytes)++;
 	(env->curr)++;
+
 }
 
 void printUNums(t_env *env, va_list ap, int base, int upperCase)
@@ -184,7 +197,9 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
     if (format[(env->curr)] == '%')
 		printPercent(env, format);
-	else if (format[(env->curr)] == 's')
+	if (format[(env->curr)] == ' ')
+    	printSpace(env, ap);
+	if (format[(env->curr)] == 's')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
 	else if (format[(env->curr)] == 'p')
@@ -209,7 +224,6 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 		printc(env, ap);
     else if (format[(env->curr)] == 'C')
     	printC(env, ap);
-
 
 }
 
