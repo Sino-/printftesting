@@ -128,17 +128,13 @@ void printC(t_env *env, va_list ap)
 }
 
 
-void prints(t_env *env, va_list ap)
+void printSpace(t_env *env, va_list ap, const char * restrict format)
 {
-	char *str;
 
-	str = va_arg(ap, char *);
-	while (*str)
-	{
-		write(1, str++, 1);
-		(env->bytes)++;
-	}
-	(env->curr)++;
+	while (*format == ' ')
+		(env->curr)++;
+	write(1, " ", 1);
+	(env->bytes)++;
 }
 
 void prints(t_env *env, va_list ap)
@@ -161,12 +157,12 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 
 	d = va_arg(ap, int);
 	str = ft_itoa_base(d, base, upperCase);
-	while (*str == ' ')
-		str++;
-	write(1, " ", 1);
-	(env->bytes)++;
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
 	(env->curr)++;
-
 }
 
 void printUNums(t_env *env, va_list ap, int base, int upperCase)
@@ -250,4 +246,5 @@ int ft_printf(const char * restrict format, ...)
     }
 	return (env.bytes);
 }
+
 
