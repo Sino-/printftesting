@@ -199,27 +199,27 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 	if (format[(env->curr)] == 's')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
-	else if (format[(env->curr)] == 'p')
+	if (format[(env->curr)] == 'p')
 		printp(env, ap);
-	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
+	if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
 		printNums(env, ap, 10, 0);
-	else if (format[(env->curr)] == 'D')
+	if (format[(env->curr)] == 'D')
 		printUNums(env, ap, 10, 0);
 // else if (format[(env->curr)] == 'i')  implemented above with 'd'
-	else if (format[(env->curr)] == 'o')
+	if (format[(env->curr)] == 'o')
 		printNums(env, ap, 8, 0);
-	else if (format[(env->curr)] == 'O')
+	if (format[(env->curr)] == 'O')
 		printUNums(env, ap, 8, 0);
-	else if (format[(env->curr)] == 'u')
+	if (format[(env->curr)] == 'u')
 		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
-	else if (format[(env->curr)] == 'x')
+	if (format[(env->curr)] == 'x')
 		printNums(env, ap, 16, 0);
-	else if (format[(env->curr)] == 'X')
+	if (format[(env->curr)] == 'X')
 		printNums(env, ap, 16, 1);
-    else if (format[(env->curr)] == 'c')
+    if (format[(env->curr)] == 'c')
 		printc(env, ap);
-    else if (format[(env->curr)] == 'C')
+    if (format[(env->curr)] == 'C')
     	printC(env, ap);
 
 }
