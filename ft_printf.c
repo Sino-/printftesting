@@ -191,10 +191,11 @@ void printp(t_env *env, va_list ap)
 void parseFlag(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
+    
+    if (format[(env->curr)] == ' ')
+    	printSpace(env, ap, format);
     if (format[(env->curr)] == '%')
 		printPercent(env, format);
-	if (format[(env->curr)] == ' ')
-    	printSpace(env, ap);
 	if (format[(env->curr)] == 's')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
@@ -246,5 +247,3 @@ int ft_printf(const char * restrict format, ...)
     }
 	return (env.bytes);
 }
-
-
