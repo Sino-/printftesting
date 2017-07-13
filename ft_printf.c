@@ -225,8 +225,18 @@ int ft_printf(const char * restrict format, ...)
     while (format[(env.curr)])
     {
         if (format[(env.curr)] == '%')
+		{
+			if(format[(env.curr + 1)] == ' ')
+			{
+				while (format[(env.curr + 1)] == ' ')
+					(env.curr)++;   			
+				write(1, " ", 1);
+				(env.bytes)++;
+
+			}
             parseFlag(&env, format, ap);
-        else
+        }
+		else
         {
             write(1, &(format[(env.curr)]), 1);
         	(env.bytes)++;
