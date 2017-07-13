@@ -236,28 +236,3 @@ int ft_printf(const char * restrict format, ...)
     }
 	return (env.bytes);
 }
-
-int ft_printf(const char * restrict format, ...)
-{
-	t_env env;
-	va_list ap;
-	va_start(ap, format);
-
-	env.curr		= 0;
-	env.bytes		= 0;
-  	reset_env(&env);
-    while (format[(env.curr)])
-    {
-        if (format[(env.curr)] == '%')
-            parseFlag(&env, format, ap);
-        else
-        {
-            write(1, &(format[(env.curr)]), 1);
-        	(env.bytes)++;
-        	(env.curr)++;
-        }
-        
-    }
-	return (env.bytes);
-}
-
