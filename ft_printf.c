@@ -226,15 +226,34 @@ void parseFlag(t_env *env, const char * restrict format)
 	{
 		flagFound = 1;
 		if (format[(env->curr)] == '#')
+		{
 			env->octothorpe = 1;
+			(env->curr)++
+		}
 		else if (format[(env->curr)] == '0')
+		{
 			env->zero = 1;
+		(env->curr)++
+
+		}
 		else if (format[(env->curr)] == '-')
+		{
 			env->minus = 1;
+			(env->curr)++
+	
+		}
 		else if (format[(env->curr)] == '+')
+		{
 			env->plus = 1;
+				(env->curr)++
+
+		}
 		else if (format[(env->curr)] == ' ')
+		{
 			env->space = 1;
+				(env->curr)++
+
+		}
 		else
 			flagFound = 0;
 	}
