@@ -1,20 +1,20 @@
 #include "libftprintf.h"
 
 /*
-**	Allowed functions:
-**	◦ write
-**	◦ malloc
-**	◦ free
-**	◦ exit
-**	◦ The functions of man 3 stdarg
-**
-**	You have to manage the following conversions: sSpdDioOuUxXcC
-**	• You must manage %%
-**	• You must manage the flags #0-+ and space
-**	• You must manage the minimum field-width
-**	• You must manage the precision
-**	• You must manage the flags hh, h, l, ll, j, et z.
-*/
+ **	Allowed functions:
+ **	◦ write
+ **	◦ malloc
+ **	◦ free
+ **	◦ exit
+ **	◦ The functions of man 3 stdarg
+ **
+ **	You have to manage the following conversions: sSpdDioOuUxXcC
+ **	• You must manage %%
+ **	• You must manage the flags #0-+ and space
+ **	• You must manage the minimum field-width
+ **	• You must manage the precision
+ **	• You must manage the flags hh, h, l, ll, j, et z.
+ */
 
 char *ft_itoa_base(int value, int base, int upperCase)
 {
@@ -228,31 +228,30 @@ void parseFlag(t_env *env, const char * restrict format)
 		if (format[(env->curr)] == '#')
 		{
 			env->octothorpe = 1;
-			(env->curr)++
+			(env->curr)++;
 		}
 		else if (format[(env->curr)] == '0')
 		{
 			env->zero = 1;
-		(env->curr)++
+			(env->curr)++;
 
 		}
 		else if (format[(env->curr)] == '-')
 		{
 			env->minus = 1;
-			(env->curr)++
-	
+			(env->curr)++;
+
 		}
 		else if (format[(env->curr)] == '+')
 		{
 			env->plus = 1;
-				(env->curr)++
+			(env->curr)++;
 
 		}
 		else if (format[(env->curr)] == ' ')
 		{
 			env->space = 1;
-				(env->curr)++
-
+			(env->curr)++;
 		}
 		else
 			flagFound = 0;
@@ -273,7 +272,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printd(env, ap);
 	else if (format[(env->curr)] == 'D')
 		printD(env, ap);
-// else if (format[(env->curr)] == 'i')  implemented above with 'd'
+	// else if (format[(env->curr)] == 'i')  implemented above with 'd'
 	else if (format[(env->curr)] == 'o')
 		printo(env, ap);
 	else if (format[(env->curr)] == 'O')
@@ -300,28 +299,28 @@ int ft_printf(const char * restrict format, ...)
 
 	env.curr		= 0;
 	env.bytes		= 0;
-  	reset_env(&env);
+	reset_env(&env);
 	while (format[(env.curr)])
 	{
-		 if (format[(env.curr)] == '%')
-		 {
-			 if(format[(env.curr + 1)] == ' ')
-			 {
-				 while (format[(env.curr + 1)] == ' ')
-					 (env.curr)++;
-				 write(1, " ", 1);
-				 (env.bytes)++;
+		if (format[(env.curr)] == '%')
+		{
+			if(format[(env.curr + 1)] == ' ')
+			{
+				while (format[(env.curr + 1)] == ' ')
+					(env.curr)++;
+				write(1, " ", 1);
+				(env.bytes)++;
 
-			 }
-			 parseConversion(&env, format, ap);
-		 }
+			}
+			parseConversion(&env, format, ap);
+		}
 		else
 		{
 			write(1, &(format[(env.curr)]), 1);
 			(env.bytes)++;
 			(env.curr)++;
 		}
-		
+
 	}
 	return (env.bytes);
 }
