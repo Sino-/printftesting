@@ -194,10 +194,55 @@ void printp(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+void printd(t_env *env, va_list ap)
+{
+	printNums(env, ap, 10, 0);
+}
 
-void parseFlag(t_env *env, const char * restrict format, va_list ap)
+void printD(t_env *env, va_list ap)
+{
+	printUNums(env, ap, 10, 0);
+}
+
+void printo(t_env *env, va_list ap)
+{
+	env->bytes += env->octothorpe == 1 ? write(1, "0x", 2) : 0;
+	printNums(env, ap, 8, 0);
+}
+
+void printO(t_env *env, va_list ap)
+{
+	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
+	printUNums(env, ap, 8, 0);
+}
+
+
+void parseFlag(t_env *env, const char * restrict format)
+{
+	char flagFound;
+
+	flagFound = 1;
+	while (flagFound)
+	{
+		flagFound = 1;
+		if (format[(env->curr)] == '#')
+			env->octothorpe = 1;
+		else if (format[(env->curr)] == '0')
+			env->zero = 1;
+		else if (format[(env->curr)] == '-')
+			env->minus = 1;
+		else if (format[(env->curr)] == '+')
+			env->plus = 1;
+		else if (format[(env->curr)] == ' ')
+			env->space = 1;
+		else
+			flagFound = 0;
+	}
+}
+void parseConversion(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
+	parseFlag(env, format);
 	if (format[(env->curr)] == '%')
 		printPercent(env, format);
 	else if (format[(env->curr)] == 's')
@@ -206,14 +251,14 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 	else if (format[(env->curr)] == 'p')
 		printp(env, ap);
 	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
-		printNums(env, ap, 10, 0);
+		printd(env, ap);
 	else if (format[(env->curr)] == 'D')
-		printUNums(env, ap, 10, 0);
+		printD(env, ap);
 // else if (format[(env->curr)] == 'i')  implemented above with 'd'
 	else if (format[(env->curr)] == 'o')
-		printNums(env, ap, 8, 0);
+		printo(env, ap);
 	else if (format[(env->curr)] == 'O')
-		printUNums(env, ap, 8, 0);
+		printO(env, ap);
 	else if (format[(env->curr)] == 'u')
 		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
@@ -225,8 +270,7 @@ void parseFlag(t_env *env, const char * restrict format, va_list ap)
 		printc(env, ap);
 	else if (format[(env->curr)] == 'C')
 		printC(env, ap);
-
-
+	reset_env(env);
 }
 
 int ft_printf(const char * restrict format, ...)
@@ -250,7 +294,7 @@ int ft_printf(const char * restrict format, ...)
 				 (env.bytes)++;
 
 			 }
-			 parseFlag(&env, format, ap);
+			 parseConversion(&env, format, ap);
 		 }
 		else
 		{
@@ -262,5 +306,4 @@ int ft_printf(const char * restrict format, ...)
 	}
 	return (env.bytes);
 }
-
 
