@@ -225,7 +225,7 @@ void printx(t_env *env, va_list ap)
 void printX(t_env *env, va_list ap)
 {
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
-	printNums(env, ap, 16, 0);
+	printNums(env, ap, 16, 1);
 }
 
 
