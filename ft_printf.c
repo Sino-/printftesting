@@ -1,4 +1,4 @@
-#include /**/ "libftprintf.h" /**///"ft_printf.h"
+#include "libftprintf.h"
 
 /*
 **	Allowed functions:
@@ -15,6 +15,76 @@
 **	• You must manage the precision
 **	• You must manage the flags hh, h, l, ll, j, et z.
 */
+
+
+//
+
+//Flag		Meaning
+//-			The output is left justified in its field, not right justified (the default).
+//+	    	Signed numbers will always be printed with a leading sign (+ or -).
+//space		Positive numbers are preceded by a space (negative numbers by a - sign).
+//0	    	For numeric conversions, pad with leading zeros to the field width.
+//#	    	An alternative output form. For o, the first digit will be '0'. For x or X, "0x" or "0X" will be prefixed to a non-zero result. For e, E, f, F, g and G, the output will always have a decimal point; for g and G, trailing zeros will not be removed.
+
+int	ft_isdigit(int ascii_char)
+{
+	if ((ascii_char) >= '0' && (ascii_char <= '9'))
+		return (1);
+	return (0);
+}
+
+int	ft_iswhitespace(char c)
+{
+	if (c == ' ')
+		return (1);
+	if (c == '\t')
+		return (1);
+	if (c == '\n')
+		return (1);
+	if (c == '\v')
+		return (1);
+	if (c == '\f')
+		return (1);
+	if (c == '\r')
+		return (1);
+	else
+		return (0);
+}
+
+void	find_width(t_env *env, const char * restrict format)
+{
+	while (ft_isdigit(format[(env->curr)]) == 1)
+	{
+		(env->width) = ((env->width) * 10) + (format[(env->curr)] - 48);
+		(env->curr)++;
+	}
+	//printf("\n\n\n\n\nWIDTH IS |%i|\n\n\n\n\n\n", env->width);
+}
+void	find_precision(t_env *env, const char * restrict format)
+{
+	if (format[(env->curr)] == '.')
+	{
+		(env->curr)++;
+		while (ft_isdigit(format[(env->curr)]) == 1)
+		{
+			(env->precision) = ((env->precision) * 10) + (format[(env->curr)] - 48);
+			(env->curr)++;
+		}
+	}
+			//printf("\n\n\n\n\nPRECISION IS |%i|\n\n\n\n\n\n", env->precision);
+}
+
+
+size_t	ft_strlen(char const *str)
+{
+	size_t	curr;
+
+	curr = 0;
+	while (str[curr])
+		curr++;
+	return (curr);
+}
+
 
 char *ft_itoa_base(int value, int base, int upperCase)
 {
@@ -86,6 +156,7 @@ char *ft_itoa_Ubase(unsigned int value, int base, int upperCase)
 
 void	reset_env(t_env *env)
 {
+	env->width		= 0;
 	env->precision	= 0;
 	env->octothorpe	= 0;
 	env->zero		= 0;
@@ -127,19 +198,46 @@ void printC(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+void printString(t_env *env, char *str)
+{
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+}
+
+void printPadding(t_env *env, char *str)
+{
+	if (env->width)
+	{
+		while(((env->width) - ft_strlen(str)) > 0)
+		{
+			write(1, " ", 1);
+			(env->bytes)++;
+			(env->width)--;
+		}
+	}
+}
 
 void prints(t_env *env, va_list ap)
 {
 	char *str;
 
 	str = va_arg(ap, char *);
-	while (*str)
+	if (env->minus)
 	{
-		write(1, str++, 1);
-		(env->bytes)++;
+		printString(env, str);
+		printPadding(env, str);
+	}
+	else
+	{
+		printPadding(env, str);
+		printString(env, str);
 	}
 	(env->curr)++;
 }
+
 
 void printNums(t_env *env, va_list ap, int base, int upperCase)
 {
@@ -196,6 +294,7 @@ void printp(t_env *env, va_list ap)
 
 void printd(t_env *env, va_list ap)
 {
+	env->bytes += env->space == 1 ? 1 : 0;
 	printNums(env, ap, 10, 0);
 }
 
@@ -227,7 +326,6 @@ void printX(t_env *env, va_list ap)
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
 	printNums(env, ap, 16, 1);
 }
-
 
 void parseFlag(t_env *env, const char * restrict format)
 {
@@ -273,6 +371,8 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
 	parseFlag(env, format);
+	find_width(env, format);
+	find_precision(env, format);
 	if (format[(env->curr)] == '%')
 		printPercent(env, format);
 	else if (format[(env->curr)] == 's')
@@ -336,266 +436,4 @@ int ft_printf(const char * restrict format, ...)
 	}
 	return (env.bytes);
 }
-/*
-int main(void)
-{
-	int ret;
 
-	ft_printf("\n");
-	ft_printf(" %%%% test\n");
-	ret = ft_printf("printing |%%|");
-	ft_printf("\n");
-	printf("ret is=|%i|\n", ret);
-
-	ft_printf("\n");
-	ft_printf("\n");
-
-	ft_printf("Char test\n");
-	ft_printf("\n");
-	char c;
-
-	c = 'x';
-
-	char d;
-
-	d = 'y';
-
-	ret = ft_printf("printing |%c| |%c|", c, d);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-
-
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("String test\n");
-	ft_printf("\n");
-	char *strng = "Hello";
-
-	ret = ft_printf("printing |%s|", strng);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("d test\n");
-	ft_printf("\n");
-	int dtest = 1234567890;
-
-	ret = ft_printf("printing |%d|", dtest);	
-	ft_printf("\n");
-	
-	ft_printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("x test\n");
-	ft_printf("\n");
-	int xtest = 1234567890;
-
-	ret = ft_printf("printing |%x|", xtest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-		////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("X test\n");
-	ft_printf("\n");
-	int Xtest = 1234567890;
-
-	ret = ft_printf("printing |%X|", Xtest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("o test\n");
-	ft_printf("\n");
-	int otest = 1234567890;
-
-	ret = ft_printf("printing |%o|", otest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("O test\n");
-	ft_printf("\n");
-	int Otest = 1234567890;
-
-	ret = ft_printf("printing |%O|", Otest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("u test\n");
-	ft_printf("\n");
-	unsigned int utest = 1234567890;
-
-	ret = ft_printf("printing |%u|", utest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("p test\n");
-	ft_printf("\n");
-	unsigned int ptest = 1234567890;
-
-	ret = ft_printf("printing |%p|", &ptest);	
-	printf("\nprintfs: |%p|\n", &ptest);
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("p test\n");
-	ft_printf("\n");
-	wchar_t wtest = L'Ω';
-	setlocale(LC_CTYPE, "");
-
-	ret = ft_printf("printing |%C|", wtest);	
-	printf("\nprintfs: |%C|\n", wtest);
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("o test with #\n");
-	ft_printf("\n");
-	int oOcttest = 1234567890;
-
-	ret = ft_printf("printing |%#o|", oOcttest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("O test with #\n");
-	ft_printf("\n");
-	int OOcttest = 1234567890;
-
-	ret = ft_printf("printing |%#O|", OOcttest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("x test with #\n");
-	ft_printf("\n");
-	int oxtest = 1234567890;
-
-	ret = ft_printf("printing |%#x|", oxtest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-	////////////////////////
-	ft_printf("\n");
-	ft_printf("\n");
-
-
-	ft_printf("X test with #\n");
-	ft_printf("\n");
-	int oXtest = 1234567890;
-
-	ret = ft_printf("printing |%#X|", oXtest);	
-	ft_printf("\n");
-	
-	printf("ret is=|%i|\n", ret);
-	////////////////////////
-
-
-
-	printf("\n\nnormal printf: printing |%#x|, |%#X|\n\n", oxtest, oXtest);	
-
-	printf("\n\nnormal printf: printing |%#o|, |%#O|\n\n", oOcttest, OOcttest);	
-
-	printf("\n\n\n\nAssorted Printf experiments below\n");
-
-	int test = 100;
-	printf("\n100 with %%o =|%o|", test);
-	printf("\nusing ft_itoa_base: %s", ft_itoa_base(test, 8, 0));
-	printf("\nBelow will \"print Hello right justified in a group of 25 spaces.\"");
-	printf("\n|%25.4s|","Hello");
-	printf("\n%lu", strlen("Hello"));
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	return (0);
-}
-
-*/
