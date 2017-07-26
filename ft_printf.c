@@ -266,7 +266,7 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	}
 	if (env->space)
 	{
-		(d < 0) ? write(1, "-", 1) : write(1, "-", 1);
+		(d < 0) ? write(1, "-", 1) : write(1, " ", 1);
 		(env->bytes)++;
 	}
 	if (env->minus)
