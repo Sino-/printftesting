@@ -189,15 +189,6 @@ void printc(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void printC(t_env *env, va_list ap)
-{
-	wchar_t c;
-	c = va_arg(ap, long long);
-	write(1, &c, 1);
-	(env->bytes)++;
-	(env->curr)++;
-}
-
 void printString(t_env *env, char *str)
 {
 	if (env->precision)
@@ -442,9 +433,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printx(env, ap);
 	else if (format[(env->curr)] == 'X')
 		printX(env, ap);
-	else if (format[(env->curr)] == 'c')
-		printc(env, ap);
-	else if (format[(env->curr)] == 'C')
+	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
 }
