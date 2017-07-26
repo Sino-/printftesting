@@ -289,20 +289,20 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	(env->curr)++;
 }
 
-void printUNums(t_env *env, va_list ap, int base, int upperCase)
-{
-	unsigned int d;
-	char *str;
+// void printUNums(t_env *env, va_list ap, int base, int upperCase)
+// {
+// 	unsigned int d;
+// 	char *str;
 
-	d = va_arg(ap, unsigned int);
-	str = ft_itoa_Ubase(d, base, upperCase);
-	while (*str)
-	{
-		write(1, str++, 1);
-		(env->bytes)++;
-	}
-	(env->curr)++;
-}
+// 	d = va_arg(ap, unsigned int);
+// 	str = ft_itoa_Ubase(d, base, upperCase);
+// 	while (*str)
+// 	{
+// 		write(1, str++, 1);
+// 		(env->bytes)++;
+// 	}
+// 	(env->curr)++;
+// }
 
 void printp(t_env *env, va_list ap)
 {
