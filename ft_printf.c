@@ -265,12 +265,11 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 			(env->width)--;
 	}
 	if (env->space)
-	{
-		(d < 0) ? write(1, "-", 1) : write(1, " ", 1);
-		(env->bytes)++;
-		if(env->width)
-			(env->width)--;
-	}
+		if (d > 0)
+		{
+			write(1, " ", 1);
+			(env->bytes)++;
+		}
 	if (env->minus)
 	{
 		printString(env, str);
