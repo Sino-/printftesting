@@ -464,8 +464,7 @@ int ft_printf(const char * restrict format, ...)
 			 {
 				 while (format[(env.curr + 1)] == ' ')
 					 (env.curr)++;
-				 //write(1, " ", 1);
-				 (env.bytes)++;
+				 env.space = 1;
 
 			 }
 			 parseConversion(&env, format, ap);
