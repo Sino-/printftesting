@@ -86,12 +86,12 @@ size_t	ft_strlen(char const *str)
 }
 
 
-char *ft_itoa_base(int value, int base, int upperCase)
+char *ft_itoa_base(long long value, int base, int upperCase)
 {
-	long	currval;
-	int		neg = 0;
-	int		size = 1;
-	char	*ret;
+	long long	currval;
+	int			neg = 0;
+	int			size = 1;
+	char		*ret;
 
 	if (value == 0)
 		return ("0");
@@ -126,11 +126,11 @@ char *ft_itoa_base(int value, int base, int upperCase)
 }
 
 
-char *ft_itoa_Ubase(unsigned int value, int base, int upperCase)
+char *ft_itoa_Ubase(unsigned long long value, long base, int upperCase)
 {
-	unsigned long	currval;
-	int		size = 1;
-	char	*ret;
+	unsigned long long	currval;
+	int					size = 1;
+	char				*ret;
 
 	if (value == 0)
 		return ("0");
@@ -301,13 +301,13 @@ void printp(t_env *env, va_list ap)
 {
 	unsigned int d;
 	char *str;
-	int bytes = 12;
+	//int bytes = 12;
 
 	d = va_arg(ap, unsigned int);
 	str = ft_itoa_Ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
-	// while ((int)sizeof(str) < --bytes)
+	//while ((int)sizeof(str) < --bytes)
 	// {
 	// 	write(1, "f", 1);
 	// 	(env->bytes)++;
