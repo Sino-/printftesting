@@ -224,7 +224,6 @@ void printPadding(t_env *env, char *str, char padding)
 	{
 		while(((env->width) - ft_strlen(str)) > 0)
 		{
-			write(1, "X", 1);
 			write(1, &padding, 1);
 			(env->bytes)++;
 			(env->width)--;
@@ -465,7 +464,7 @@ int ft_printf(const char * restrict format, ...)
 			 {
 				 while (format[(env.curr + 1)] == ' ')
 					 (env.curr)++;
-				 write(1, " ", 1);
+				 //write(1, " ", 1);
 				 (env.bytes)++;
 
 			 }
