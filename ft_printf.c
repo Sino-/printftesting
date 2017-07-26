@@ -421,7 +421,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 	find_precision(env, format);
 	if (format[(env->curr)] == '%')
 		printPercent(env, format);
-	else if (format[(env->curr)] == 's')
+	else if (format[(env->curr)] == 's' || format[(env->curr)] == 'S')
 		prints(env, ap);
 	// else if (format[(env->curr)] == 'S')
 	else if (format[(env->curr)] == 'p')
