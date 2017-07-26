@@ -257,6 +257,11 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 
 	d = va_arg(ap, int);
 	str = ft_itoa_base(d, base, upperCase);
+	if (env->curr && d >= 0)
+	{
+		write(1, "+", 1);
+		(env->bytes)++;
+	}
 	while (*str)
 	{
 		write(1, str++, 1);
@@ -373,6 +378,16 @@ void parseFlag(t_env *env, const char * restrict format)
         {
             env->space = 1;
             (env->curr)++;
+        }
+        else if (format[(env->curr)] == 'l')
+        {
+        	env->l = 1;
+            (env->curr)++;
+            if (format[(env->curr)] == 'l')
+            {
+            	env->ll = 1;
+            	(env->curr)++;
+            }
         }
         else
             flagFound = 0;
