@@ -261,6 +261,7 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	{
 		write(1, "+", 1);
 		(env->bytes)++;
+		(env->precision)--;
 	}
 	if (env->minus)
 	{
@@ -269,8 +270,8 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	}
 	else if (env->zero)
 	{
-		printString(env, str);
 		printPadding(env, str, '0');
+		printString(env, str);
 	}
 	else
 	{
