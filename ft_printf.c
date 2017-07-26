@@ -445,7 +445,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 	else if (format[(env->curr)] == 'c')
 		printc(env, ap);
 	else if (format[(env->curr)] == 'C')
-		printC(env, ap);
+		printc(env, ap);
 	reset_env(env);
 }
 
