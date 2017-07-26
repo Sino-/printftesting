@@ -307,11 +307,11 @@ void printp(t_env *env, va_list ap)
 	str = ft_itoa_Ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
-	while ((int)sizeof(str) < --bytes)
-	{
-		write(1, "f", 1);
-		(env->bytes)++;
-	}
+	// while ((int)sizeof(str) < --bytes)
+	// {
+	// 	write(1, "f", 1);
+	// 	(env->bytes)++;
+	// }
 	while (*str)
 	{
 		write(1, str++, 1);
