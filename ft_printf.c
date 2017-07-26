@@ -224,6 +224,7 @@ void printPadding(t_env *env, char *str, char padding)
 	{
 		while(((env->width) - ft_strlen(str)) > 0)
 		{
+			write(1, "X", 1);
 			write(1, &padding, 1);
 			(env->bytes)++;
 			(env->width)--;
@@ -264,12 +265,12 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 		if(env->width)
 			(env->width)--;
 	}
-	// if (env->space)
-	// 	if (d > 0)
-	// 	{
-	// 		write(1, " ", 1);
-	// 		(env->bytes)++;
-	// 	}
+	if (env->space)
+		if (d > 0)
+		{
+			write(1, " ", 1);
+			(env->bytes)++;
+		}
 	if (env->minus)
 	{
 		printString(env, str);
