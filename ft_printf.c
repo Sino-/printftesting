@@ -280,11 +280,13 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 		printPadding(env, str, '0');
 		printString(env, str);
 	}
-	else
+	else if (env->width)
 	{
 		printPadding(env, str, ' ');
 		printString(env, str);
 	}
+	else
+		printString(env, str);
 	(env->curr)++;
 }
 
