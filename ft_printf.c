@@ -264,12 +264,12 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 		if(env->width)
 			(env->width)--;
 	}
-	if (env->space)
-		if (d > 0)
-		{
-			write(1, " ", 1);
-			(env->bytes)++;
-		}
+	// if (env->space)
+	// 	if (d > 0)
+	// 	{
+	// 		write(1, " ", 1);
+	// 		(env->bytes)++;
+	// 	}
 	if (env->minus)
 	{
 		printString(env, str);
@@ -334,7 +334,7 @@ void printd(t_env *env, va_list ap)
 
 void printD(t_env *env, va_list ap)
 {
-	printNums(env, ap, 10, 0);//U
+	printUNums(env, ap, 10, 0);
 }
 
 void printo(t_env *env, va_list ap)
@@ -346,7 +346,7 @@ void printo(t_env *env, va_list ap)
 void printO(t_env *env, va_list ap)
 {
 	env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
-	printNums(env, ap, 8, 0);//U
+	printUNums(env, ap, 8, 0);
 }
 
 void printx(t_env *env, va_list ap)
@@ -434,7 +434,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 	else if (format[(env->curr)] == 'O')
 		printO(env, ap);
 	else if (format[(env->curr)] == 'u')
-		printNums(env, ap, 10, 0);//U
+		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
 	else if (format[(env->curr)] == 'x')
 		printx(env, ap);
