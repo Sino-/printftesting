@@ -280,13 +280,11 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 		printPadding(env, str, '0');
 		printString(env, str);
 	}
-	else if (env->width)
+	else
 	{
 		printPadding(env, str, ' ');
 		printString(env, str);
 	}
-	else
-		printString(env, str);
 	(env->curr)++;
 }
 
@@ -336,7 +334,7 @@ void printd(t_env *env, va_list ap)
 
 void printD(t_env *env, va_list ap)
 {
-	printUNums(env, ap, 10, 0);
+	printNums(env, ap, 10, 0);//U
 }
 
 void printo(t_env *env, va_list ap)
@@ -348,7 +346,7 @@ void printo(t_env *env, va_list ap)
 void printO(t_env *env, va_list ap)
 {
 	env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
-	printUNums(env, ap, 8, 0);
+	printNums(env, ap, 8, 0);//U
 }
 
 void printx(t_env *env, va_list ap)
@@ -436,7 +434,7 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 	else if (format[(env->curr)] == 'O')
 		printO(env, ap);
 	else if (format[(env->curr)] == 'u')
-		printUNums(env, ap, 10, 0);
+		printNums(env, ap, 10, 0);//U
 	// else if (format[(env->curr)] == 'U')
 	else if (format[(env->curr)] == 'x')
 		printx(env, ap);
