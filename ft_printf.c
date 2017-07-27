@@ -243,10 +243,10 @@ void prints(t_env *env, va_list ap)
 
 void printNums(t_env *env, va_list ap, int base, int upperCase)
 {
-	intmax_t d;
+	long long d;
 	char *str;
 
-	d = va_arg(ap, intmax_t);
+	d = va_arg(ap, int);
 	str = ft_itoa_base(d, base, upperCase);
 	if (env->plus && d >= 0)
 	{
@@ -298,12 +298,11 @@ void printUNums(t_env *env, va_list ap, int base, int upperCase)
 
 void printp(t_env *env, va_list ap)
 {
-	void *d;
+	uintmax_t d;
 	char *str;
-	//int bytes = 12;
 
-	d = va_arg(ap, void *);
-	str = ft_itoa_Ubase((uintmax_t)d, 16, 0);
+	d = va_arg(ap, uintmax_t);
+	str = ft_itoa_Ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
 	while (*str)
