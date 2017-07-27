@@ -393,74 +393,6 @@ void printX(t_env *env, va_list ap)
 
 }
 
-//**************** Testing Tony's Function
-char	ft_wctos(wint_t c)
-{
-	char	*str;
-
-	str = (char *)malloc(sizeof(char) * 5);
-	str[4] = 0;
-	if (c <= 0x7F)
-		str[0] = c;
-	else if (c <= 0x7FF)
-	{
-		str[0] = (c >> 6) + 0xc0;
-		str[1] = (c & 0x3f) + 0x80;
-	}
-	else if (c <= 0xFFFF)
-	{
-		str[0] = (c >> 12) + 0xe0;
-		str[1] = ((c >> 6) & 0x3f) + 0x80;
-		str[2] = (c & 0x3f) + 0x80;
-	}
-	else if (c <= 0x10FFFF)
-	{
-		str[0] = (c >> 18) + 0xf0;
-		str[1] = (c >> 12 & 0x3f) + 0x80;
-		str[2] = (c >> 6 & 0x3f) + 0x80;
-		str[3] = (c & 0x3f) + 0xc80;
-	}
-	return (*str);
-}
-////////////////////////////////////////////////////////////////////
-
-
-
-char test(wchar_t x)
-{
-	char y = (char) x;
-
-	return (y);
-}
-
-
-
-
-
-void printS(t_env *env, va_list ap)
-{
-	char *str;
-	int curr = 0;
-
-	str = va_arg(ap, char *);
-	while (str[curr])
-	{
-		str[curr] = test(str[curr]);
-		curr++;
-	}
-	if (env->minus)
-	{
-		printString(env, str);
-		printPadding(env, str, ' ');
-	}
-	else
-	{
-		printPadding(env, str, ' ');
-		printString(env, str);
-	}
-	(env->curr)++;
-}
-
 
 void parseFlag(t_env *env, const char * restrict format)
 {
@@ -533,8 +465,8 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printPercent(env, format);
 	else if (format[(env->curr)] == 's')
 		prints(env, ap);
-	else if (format[(env->curr)] == 'S')
-		printS(env, ap);
+	//else if (format[(env->curr)] == 'S')
+		//printS(env, ap);
 	else if (format[(env->curr)] == 'p')
 		printp(env, ap);
 	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i' )
