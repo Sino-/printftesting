@@ -370,26 +370,6 @@ void printX(t_env *env, va_list ap)
 
 }
 
-
-void printp(t_env *env, va_list ap)
-{
-	uintmax_t d;
-	char *str;
-
-	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 16, 0);
-	write(1, "0x", 2);
-	(env->bytes)+=2;
-	while (*str)
-	{
-		write(1, str++, 1);
-		(env->bytes)++;
-	}
-	(env->curr)++;
-}
-
-
-
 void parseFlag(t_env *env, const char * restrict format)
 {
     char flagFound;
