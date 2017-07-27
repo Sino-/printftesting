@@ -396,10 +396,12 @@ void printX(t_env *env, va_list ap)
 
 void parseFlag(t_env *env, const char * restrict format)
 {
-    char flagFound;
+    char 	flagFound;
+    int		escape;
 
+    escape = 1;
     flagFound = 1;
-    while (flagFound)
+    while (flagFound || escape < 4)
     {
         flagFound = 1;
         if (format[(env->curr)] == '#')
@@ -455,7 +457,10 @@ void parseFlag(t_env *env, const char * restrict format)
             }
         }
         else
+        {
             flagFound = 0;
+            escape++;
+        }
     }
 
 }
