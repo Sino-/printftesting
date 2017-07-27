@@ -1,20 +1,19 @@
 #include "libftprintf.h"
 
-/*
- **	Allowed functions:
- **	◦ write
- **	◦ malloc
- **	◦ free
- **	◦ exit
- **	◦ The functions of man 3 stdarg
- **
- **	You have to manage the following conversions: sSpdDioOuUxXcC
- **	• You must manage %%
- **	• You must manage the flags #0-+ and space
- **	• You must manage the minimum field-width
- **	• You must manage the precision
- **	• You must manage the flags hh, h, l, ll, j, et z.
- */
+//	Allowed functions:
+//	◦ write
+//	◦ malloc
+//	◦ free
+//	◦ exit
+//	◦ The functions of man 3 stdarg
+//
+//	You have to manage the following conversions: sSpdDioOuUxXcC
+//	• You must manage %%
+//	• You must manage the flags #0-+ and space
+//	• You must manage the minimum field-width
+//	• You must manage the precision
+//	• You must manage the flags hh, h, l, ll, j, et z.
+//
 
 //
 //Flag		Meaning
@@ -81,7 +80,7 @@ size_t	ft_strlen(char const *str)
 	return (curr);
 }
 
-char	*ft_itoa_base(long long value, int base, int upperCase)
+char	*ft_itoa_base(long long value, int base, int upper_case)
 {
 	long long	currval;
 	int			neg;
@@ -104,7 +103,7 @@ char	*ft_itoa_base(long long value, int base, int upperCase)
 		size++;
 		currval /= base;
 	}
-	char *digits = (upperCase == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
+	char *digits = (upper_case == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
 	ret = (char *)malloc(sizeof(char) * size);
 	size--;
 	ret[size--] = '\0';
@@ -122,7 +121,7 @@ char	*ft_itoa_base(long long value, int base, int upperCase)
 	return (ret);
 }
 
-char	*ft_itoa_Ubase(unsigned long long value, long base, int upperCase)
+char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 {
 	unsigned long long	currval;
 	int					size;
@@ -137,7 +136,7 @@ char	*ft_itoa_Ubase(unsigned long long value, long base, int upperCase)
 		size++;
 		currval /= base;
 	}
-	char *digits = (upperCase == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
+	char *digits = (upper_case == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
 	ret = (char *)malloc(sizeof(char) * size);
 	size--;
 	ret[size--] = '\0';
@@ -168,7 +167,7 @@ void	reset_env(t_env *env)
 	env->z = 0;
 }
 
-void	printPercent(t_env *env, const char * restrict format)
+void	print_percent(t_env *env, const char * restrict format)
 {
 	while (format[(env->curr)] == '%')
 	{
@@ -188,7 +187,7 @@ void	printc(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void	printString(t_env *env, char *str)
+void	print_string(t_env *env, char *str)
 {
 	if (env->precision)
 	{
@@ -208,7 +207,7 @@ void	printString(t_env *env, char *str)
 	}
 }
 
-void	printPadding(t_env *env, char *str, char padding)
+void	print_padding(t_env *env, char *str, char padding)
 {
 	if (env->width)
 	{
@@ -228,25 +227,24 @@ void	prints(t_env *env, va_list ap)
 	str = va_arg(ap, char *);
 	if (env->minus)
 	{
-		printString(env, str);
-		printPadding(env, str, ' ');
+		print_string(env, str);
+		print_padding(env, str, ' ');
 	}
 	else
 	{
-		printPadding(env, str, ' ');
-		printString(env, str);
+		print_padding(env, str, ' ');
+		print_string(env, str);
 	}
 	(env->curr)++;
 }
 
-
-void	printNums(t_env *env, va_list ap, int base, int upperCase)
+void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	long long	d;
 	char		*str;
 
 	d = va_arg(ap, int);
-	str = ft_itoa_base(d, base, upperCase);
+	str = ft_itoa_base(d, base, upper_case);
 	if (env->plus && d >= 0)
 	{
 		write(1, "+", 1);
@@ -264,29 +262,29 @@ void	printNums(t_env *env, va_list ap, int base, int upperCase)
 		}
 	if (env->minus)
 	{
-		printString(env, str);
-		printPadding(env, str, ' ');
+		print_string(env, str);
+		print_padding(env, str, ' ');
 	}
 	else if (env->zero)
 	{
-		printPadding(env, str, '0');
-		printString(env, str);
+		print_padding(env, str, '0');
+		print_string(env, str);
 	}
 	else
 	{
-		printPadding(env, str, ' ');
-		printString(env, str);
+		print_padding(env, str, ' ');
+		print_string(env, str);
 	}
 	(env->curr)++;
 }
 
-void	printUNums(t_env *env, va_list ap, int base, int upperCase)
+void	print_u_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	uintmax_t	d;
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, base, upperCase);
+	str = ft_itoa_ubase(d, base, upper_case);
 	while (*str)
 	{
 		write(1, str++, 1);
@@ -295,15 +293,15 @@ void	printUNums(t_env *env, va_list ap, int base, int upperCase)
 	(env->curr)++;
 }
 
-void	printp(t_env *env, va_list ap)
+void	print_p(t_env *env, va_list ap)
 {
 	uintmax_t	d;
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 16, 0);
+	str = ft_itoa_ubase(d, 16, 0);
 	write(1, "0x", 2);
-	(env->bytes)+=2;
+	(env->bytes) += 2;
 	while (*str)
 	{
 		write(1, str++, 1);
@@ -311,17 +309,16 @@ void	printp(t_env *env, va_list ap)
 	}
 	(env->curr)++;
 }
-
 
 void	printd(t_env *env, va_list ap)
 {
 	env->bytes += env->space == 1 ? 1 : 0;
-	printNums(env, ap, 10, 0);
+	print_nums(env, ap, 10, 0);
 }
 
-void	printD(t_env *env, va_list ap)
+void	print_capital_d(t_env *env, va_list ap)
 {
-	printUNums(env, ap, 10, 0);
+	print_u_nums(env, ap, 10, 0);
 }
 
 void	printo(t_env *env, va_list ap)
@@ -330,7 +327,7 @@ void	printo(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 8, 0);
+	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
 		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
 	while (*str)
@@ -341,14 +338,14 @@ void	printo(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void	printO(t_env *env, va_list ap)
+void	print_capital_o(t_env *env, va_list ap)
 {
 	uintmax_t 	d;
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);	
-	printUNums(env, ap, 8, 0);
-	str = ft_itoa_Ubase(d, 8, 0);
+	print_u_nums(env, ap, 8, 0);
+	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
 		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
 	while (*str)
@@ -365,7 +362,7 @@ void	printx(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 16, 0);
+	str = ft_itoa_ubase(d, 16, 0);
 	env->bytes += env->octothorpe == 1 ? write(1, "0x", 2) : 0;
 	while (*str)
 	{
@@ -375,13 +372,13 @@ void	printx(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void	printX(t_env *env, va_list ap)
+void	print_capital_x(t_env *env, va_list ap)
 {
 	uintmax_t	d;
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 16, 1);
+	str = ft_itoa_ubase(d, 16, 1);
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
 	while (*str)
 	{
@@ -389,19 +386,18 @@ void	printX(t_env *env, va_list ap)
 		(env->bytes)++;
 	}
 	(env->curr)++;
-
 }
 
-void	parseFlag(t_env *env, const char * restrict format)
+void	parse_flag(t_env *env, const char * restrict format)
 {
-	char	flagFound;
+	char	flag_found;
 	int		escape;
 
 	escape = 1;
-	flagFound = 1;
-	while (flagFound || escape < 4)
+	flag_found = 1;
+	while (flag_found || escape < 4)
 	{
-		flagFound = 1;
+		flag_found = 1;
 		if (format[(env->curr)] == '#')
 		{
 			env->octothorpe = 1;
@@ -411,7 +407,6 @@ void	parseFlag(t_env *env, const char * restrict format)
 		{
 			env->zero = 1;
 			(env->curr)++;
-
 		}
 		else if (format[(env->curr)] == '-')
 		{
@@ -423,7 +418,6 @@ void	parseFlag(t_env *env, const char * restrict format)
 		{
 			env->plus = 1;
 			(env->curr)++;
-
 		}
 		else if (format[(env->curr)] == ' ')
 		{
@@ -456,40 +450,40 @@ void	parseFlag(t_env *env, const char * restrict format)
 		}
 		else
 		{
-			flagFound = 0;
+			flag_found = 0;
 			escape++;
 		}
 	}
 }
 
-void	parseConversion(t_env *env, const char * restrict format, va_list ap)
+void	parse_conversion(t_env *env, const char * restrict format, va_list ap)
 {
 	(env->curr)++; //eat leading % sSpdDioOuUxXcC
-	parseFlag(env, format);
+	parse_flag(env, format);
 	find_width(env, format);
 	find_precision(env, format);
 	if (format[(env->curr)] == '%')
-		printPercent(env, format);
+		print_percent(env, format);
 	else if (format[(env->curr)] == 's')
 		prints(env, ap);
 	//else if (format[(env->curr)] == 'S')
 	//printS(env, ap);
 	else if (format[(env->curr)] == 'p')
-		printp(env, ap);
+		print_p(env, ap);
 	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i')
 		printd(env, ap);
 	else if (format[(env->curr)] == 'D')
-		printD(env, ap);
+		print_capital_d(env, ap);
 	else if (format[(env->curr)] == 'o')
 		printo(env, ap);
 	else if (format[(env->curr)] == 'O')
-		printO(env, ap);
+		print_capital_o(env, ap);
 	else if (format[(env->curr)] == 'u' || format[(env->curr)] == 'U')
-		printUNums(env, ap, 10, 0);
+		print_u_nums(env, ap, 10, 0);
 	else if (format[(env->curr)] == 'x')
 		printx(env, ap);
 	else if (format[(env->curr)] == 'X')
-		printX(env, ap);
+		print_capital_x(env, ap);
 	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
@@ -497,8 +491,9 @@ void	parseConversion(t_env *env, const char * restrict format, va_list ap)
 
 int	ft_printf(const char * restrict format, ...)
 {
-	t_env env;
-	va_list ap;
+	t_env	env;
+	va_list	ap;
+
 	va_start(ap, format);
 	env.curr = 0;
 	env.bytes = 0;
@@ -513,7 +508,7 @@ int	ft_printf(const char * restrict format, ...)
 					(env.curr)++;
 				env.space = 1;
 			}
-			parseConversion(&env, format, ap);
+			parse_conversion(&env, format, ap);
 		}
 		else
 		{
