@@ -359,7 +359,7 @@ void printX(t_env *env, va_list ap)
 	char *str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_Ubase(d, 16, 0);
+	str = ft_itoa_Ubase(d, 16, 1);
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
 	while (*str)
 	{
