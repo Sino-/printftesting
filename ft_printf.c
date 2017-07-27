@@ -434,9 +434,9 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
 	else if (format[(env->curr)] == 'x')
-		printx(env, ap);
+		printp(env, ap);
 	else if (format[(env->curr)] == 'X')
-		printX(env, ap);
+		printp(env, ap);
 	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
