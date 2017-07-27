@@ -313,6 +313,7 @@ void printp(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+
 void printd(t_env *env, va_list ap)
 {
 	env->bytes += env->space == 1 ? 1 : 0;
@@ -338,15 +339,56 @@ void printO(t_env *env, va_list ap)
 
 void printx(t_env *env, va_list ap)
 {
+	uintmax_t d;
+	char *str;
+
+	d = va_arg(ap, uintmax_t);
+	str = ft_itoa_Ubase(d, 16, 0);
 	env->bytes += env->octothorpe == 1 ? write(1, "0x", 2) : 0;
-	printNums(env, ap, 16, 0);
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
 }
 
 void printX(t_env *env, va_list ap)
 {
+	uintmax_t d;
+	char *str;
+
+	d = va_arg(ap, uintmax_t);
+	str = ft_itoa_Ubase(d, 16, 0);
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
-	printNums(env, ap, 16, 1);
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
+
 }
+
+
+void printp(t_env *env, va_list ap)
+{
+	uintmax_t d;
+	char *str;
+
+	d = va_arg(ap, uintmax_t);
+	str = ft_itoa_Ubase(d, 16, 0);
+	write(1, "0x", 2);
+	(env->bytes)+=2;
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
+}
+
+
 
 void parseFlag(t_env *env, const char * restrict format)
 {
@@ -434,9 +476,9 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printUNums(env, ap, 10, 0);
 	// else if (format[(env->curr)] == 'U')
 	else if (format[(env->curr)] == 'x')
-		printp(env, ap);
+		printx(env, ap);
 	else if (format[(env->curr)] == 'X')
-		printp(env, ap);
+		printX(env, ap);
 	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
