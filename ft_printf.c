@@ -247,8 +247,8 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	char *str;
 
 	d = va_arg(ap, void *);
-	str = ft_itoa_base((long long)d, base, upperCase);
-	if (env->plus && d >= 0)
+	str = ft_itoa_base((intmax_t)d, base, upperCase);
+	if (env->plus && (intmax_t)d >= 0)
 	{
 		write(1, "+", 1);
 		(env->bytes)++;
