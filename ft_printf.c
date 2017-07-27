@@ -425,6 +425,18 @@ char	ft_wctos(wint_t c)
 ////////////////////////////////////////////////////////////////////
 
 
+
+char test(wchar_t x)
+{
+	char y = (char) x;
+
+	return (y);
+}
+
+
+
+
+
 void printS(t_env *env, va_list ap)
 {
 	char *str;
@@ -433,7 +445,7 @@ void printS(t_env *env, va_list ap)
 	str = va_arg(ap, char *);
 	while (str[curr])
 	{
-		str[curr] = ft_wctos(str[curr]);
+		str[curr] = test(str[curr]);
 		curr++;
 	}
 	if (env->minus)
