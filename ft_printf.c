@@ -328,7 +328,7 @@ void printD(t_env *env, va_list ap)
 void printo(t_env *env, va_list ap)
 {
 	env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
-	printNums(env, ap, 8, 0);
+	printUNums(env, ap, 8, 0);
 }
 
 void printO(t_env *env, va_list ap)
