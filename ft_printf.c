@@ -246,7 +246,7 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	long long d;
 	char *str;
 
-	d = va_arg(ap, long long);
+	d = va_arg(ap, int);
 	str = ft_itoa_base(d, base, upperCase);
 	if (env->plus && d >= 0)
 	{
@@ -286,7 +286,7 @@ void printUNums(t_env *env, va_list ap, int base, int upperCase)
 	unsigned long long d;
 	char *str;
 
-	d = va_arg(ap, unsigned long long);
+	d = va_arg(ap, unsigned int);
 	str = ft_itoa_Ubase(d, base, upperCase);
 	while (*str)
 	{
@@ -302,7 +302,7 @@ void printp(t_env *env, va_list ap)
 	char *str;
 	//int bytes = 12;
 
-	d = va_arg(ap, unsigned long long);
+	d = va_arg(ap, unsigned int);
 	str = ft_itoa_Ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
