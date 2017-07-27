@@ -302,8 +302,8 @@ void printp(t_env *env, va_list ap)
 	char *str;
 	//int bytes = 12;
 
-	d = va_arg(ap, unsigned int);
-	str = ft_itoa_Ubase(d, 16, 0);
+	d = va_arg(ap, void *);
+	str = ft_itoa_Ubase((uintmax_t)d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
 	//while ((int)sizeof(str) < --bytes)
