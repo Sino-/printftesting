@@ -327,14 +327,37 @@ void printD(t_env *env, va_list ap)
 
 void printo(t_env *env, va_list ap)
 {
-	env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
-	printUNums(env, ap, 8, 0);
+	uintmax_t d;
+	char *str;
+
+	d = va_arg(ap, uintmax_t);
+	str = ft_itoa_Ubase(d, 8, 0);
+	if (str[0] != '0')
+		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
 }
 
 void printO(t_env *env, va_list ap)
 {
-	env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
+	uintmax_t d;
+	char *str;
+
+	d = va_arg(ap, uintmax_t);	
 	printUNums(env, ap, 8, 0);
+	str = ft_itoa_Ubase(d, 8, 0);
+	if (str[0] != '0')
+		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
+	while (*str)
+	{
+		write(1, str++, 1);
+		(env->bytes)++;
+	}
+	(env->curr)++;
 }
 
 void printx(t_env *env, va_list ap)
