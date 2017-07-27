@@ -430,6 +430,10 @@ void parseFlag(t_env *env, const char * restrict format)
             env->space = 1;
             (env->curr)++;
         }
+        else if (format[(env->curr)] == 'z' || format[(env->curr)] == 'j')
+        {
+            (env->curr)++;
+        }
         else if (format[(env->curr)] == 'l')
         {
         	env->l = 1;
