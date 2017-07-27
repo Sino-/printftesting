@@ -246,7 +246,7 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 	long long d;
 	char *str;
 
-	d = va_arg(ap, int);
+	d = va_arg(ap, long long);
 	str = ft_itoa_base(d, base, upperCase);
 	if (env->plus && d >= 0)
 	{
@@ -286,7 +286,7 @@ void printUNums(t_env *env, va_list ap, int base, int upperCase)
 	unsigned long long d;
 	char *str;
 
-	d = va_arg(ap, unsigned int);
+	d = va_arg(ap, unsigned long long);
 	str = ft_itoa_Ubase(d, base, upperCase);
 	while (*str)
 	{
@@ -302,7 +302,7 @@ void printp(t_env *env, va_list ap)
 	char *str;
 	//int bytes = 12;
 
-	d = va_arg(ap, unsigned int);
+	d = va_arg(ap, unsigned long long);
 	str = ft_itoa_Ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes)+=2;
@@ -413,6 +413,7 @@ void parseFlag(t_env *env, const char * restrict format)
         else
             flagFound = 0;
     }
+
 }
 void parseConversion(t_env *env, const char * restrict format, va_list ap)
 {
