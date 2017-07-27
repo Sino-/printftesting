@@ -283,10 +283,10 @@ void printNums(t_env *env, va_list ap, int base, int upperCase)
 
 void printUNums(t_env *env, va_list ap, int base, int upperCase)
 {
-	unsigned long long d;
+	uintmax_t d;
 	char *str;
 
-	d = va_arg(ap, unsigned int);
+	d = va_arg(ap, uintmax_t);
 	str = ft_itoa_Ubase(d, base, upperCase);
 	while (*str)
 	{
