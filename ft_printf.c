@@ -298,7 +298,7 @@ void printUNums(t_env *env, va_list ap, int base, int upperCase)
 
 void printp(t_env *env, va_list ap)
 {
-	unsigned long long d;
+	void *d;
 	char *str;
 	//int bytes = 12;
 
