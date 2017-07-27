@@ -475,9 +475,8 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printo(env, ap);
 	else if (format[(env->curr)] == 'O')
 		printO(env, ap);
-	else if (format[(env->curr)] == 'u')
+	else if (format[(env->curr)] == 'u' || format[(env->curr)] == 'U')
 		printUNums(env, ap, 10, 0);
-	// else if (format[(env->curr)] == 'U')
 	else if (format[(env->curr)] == 'x')
 		printx(env, ap);
 	else if (format[(env->curr)] == 'X')
