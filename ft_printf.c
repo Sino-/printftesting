@@ -400,6 +400,16 @@ void parseFlag(t_env *env, const char * restrict format)
             	(env->curr)++;
             }
         }
+        else if (format[(env->curr)] == 'h')
+        {
+        	env->h = 1;
+            (env->curr)++;
+            if (format[(env->curr)] == 'h')
+            {
+            	env->hh = 1;
+            	(env->curr)++;
+            }
+        }
         else
             flagFound = 0;
     }
@@ -421,7 +431,6 @@ void parseConversion(t_env *env, const char * restrict format, va_list ap)
 		printd(env, ap);
 	else if (format[(env->curr)] == 'D')
 		printD(env, ap);
-// else if (format[(env->curr)] == 'i')  implemented above with 'd'
 	else if (format[(env->curr)] == 'o')
 		printo(env, ap);
 	else if (format[(env->curr)] == 'O')
