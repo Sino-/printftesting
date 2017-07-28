@@ -191,7 +191,7 @@ void	print_string(t_env *env, char *str)
 {
 	if (env->precision)
 	{
-		while ((env->precision)-- - env->width)
+		while ((env->precision)--)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
