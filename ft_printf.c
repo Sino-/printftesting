@@ -55,7 +55,6 @@ void	find_width(t_env *env, const char * restrict format)
 		(env->width) = ((env->width) * 10) + (format[(env->curr)] - 48);
 		(env->curr)++;
 	}
-	printf("\n\nWIDTH IS: |%i|\n\n", env->width);
 }
 
 void	find_precision(t_env *env, const char * restrict format)
@@ -69,7 +68,6 @@ void	find_precision(t_env *env, const char * restrict format)
 			(env->curr)++;
 		}
 	}
-	printf("\n\nPRECISION IS: |%i|\n\n", env->precision);
 }
 
 size_t	ft_strlen(char const *str)
@@ -193,7 +191,7 @@ void	print_string(t_env *env, char *str)
 {
 	if (env->precision)
 	{
-		while ((env->precision)--)
+		while ((env->precision)-- - env->width)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
