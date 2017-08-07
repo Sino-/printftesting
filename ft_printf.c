@@ -1,36 +1,45 @@
 #include "libftprintf.h"
 
-//	Allowed functions:
-//	◦ write
-//	◦ malloc
-//	◦ free
-//	◦ exit
-//	◦ The functions of man 3 stdarg
-//
-//	You have to manage the following conversions: sSpdDioOuUxXcC
-//	• You must manage %%
-//	• You must manage the flags #0-+ and space
-//	• You must manage the minimum field-width
-//	• You must manage the precision
-//	• You must manage the flags hh, h, l, ll, j, et z.
-//
+size_t	ft_strlen(char const *str)
+{
+	size_t	curr;
 
-//
-//Flag		Meaning
-//-			The output is left justified in its field, not right justified (the default).
-//+	    	Signed numbers will always be printed with a leading sign (+ or -).
-//space		Positive numbers are preceded by a space (negative numbers by a - sign).
-//0	    	For numeric conversions, pad with leading zeros to the field width.
-//#	    	An alternative output form. For o, the first digit will be '0'. For x or X, "0x" or "0X" will be prefixed to a non-zero result. For e, E, f, F, g and G, the output will always have a decimal point; for g and G, trailing zeros will not be removed.
+	curr = 0;
+	while (str[curr])
+		curr++;
+	return (curr);
+}
 
-int	ft_isdigit(int ascii_char)
+char	*ft_strdup(char const *s)
+{
+	char	*dup;
+	size_t	len;
+	char	*s_ptr;
+	size_t	curr;
+
+	curr = 0;
+	s_ptr = (char *)s;
+	len = ft_strlen((char *)s);
+	dup = (char *)malloc((sizeof(char) * len) + 1);
+	if (!dup)
+		return (0);
+	while (s[curr])
+	{
+		dup[curr] = s_ptr[curr];
+		curr++;
+	}
+	dup[curr] = '\0';
+	return (dup);
+}
+
+int		ft_isdigit(int ascii_char)
 {
 	if ((ascii_char) >= '0' && (ascii_char <= '9'))
 		return (1);
 	return (0);
 }
 
-int	ft_iswhitespace(char c)
+int		ft_iswhitespace(char c)
 {
 	if (c == ' ')
 		return (1);
@@ -48,7 +57,7 @@ int	ft_iswhitespace(char c)
 		return (0);
 }
 
-void	find_width(t_env *env, const char * restrict format)
+void	find_width(t_env *env, const char *restrict format)
 {
 	while (ft_isdigit(format[(env->curr)]) == 1)
 	{
@@ -57,7 +66,7 @@ void	find_width(t_env *env, const char * restrict format)
 	}
 }
 
-void	find_precision(t_env *env, const char * restrict format)
+void	find_precision(t_env *env, const char *restrict format)
 {
 	if (format[(env->curr)] == '.')
 	{
@@ -68,16 +77,6 @@ void	find_precision(t_env *env, const char * restrict format)
 			(env->curr)++;
 		}
 	}
-}
-
-size_t	ft_strlen(char const *str)
-{
-	size_t	curr;
-
-	curr = 0;
-	while (str[curr])
-		curr++;
-	return (curr);
 }
 
 char	*ft_itoa_base(long long value, int base, int upper_case)
@@ -104,8 +103,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 		currval /= base;
 	}
 	char *digits = (upper_case == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
-	ret = (char *)malloc(sizeof(char) * size);
-	size--;
+	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	if (neg)
 		ret[0] = '-';
@@ -126,6 +124,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 	unsigned long long	currval;
 	int					size;
 	char				*ret;
+	char 				*digits;
 
 	size = 1;
 	if (value == 0)
@@ -136,9 +135,8 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	char *digits = (upper_case == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
-	ret = (char *)malloc(sizeof(char) * size);
-	size--;
+	digits = (upper_case == 1) ? ft_strdup("0123456789ABCDEF") : ft_strdup("0123456789abcdef");
+	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	currval = value;
 	while (currval > 0)
@@ -455,9 +453,9 @@ void	parse_flag(t_env *env, const char * restrict format)
 	}
 }
 
-void	parse_conversion(t_env *env, const char * restrict format, va_list ap)
+void	parse_conversion(t_env *env, const char *restrict format, va_list ap)
 {
-	(env->curr)++; //eat leading % sSpdDioOuUxXcC
+	(env->curr)++;
 	parse_flag(env, format);
 	find_width(env, format);
 	find_precision(env, format);
@@ -484,7 +482,7 @@ void	parse_conversion(t_env *env, const char * restrict format, va_list ap)
 	reset_env(env);
 }
 
-int	ft_printf(const char * restrict format, ...)
+int		ft_printf(const char *restrict format, ...)
 {
 	t_env	env;
 	va_list	ap;
