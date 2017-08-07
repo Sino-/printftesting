@@ -500,9 +500,8 @@ int		ft_printf(const char *restrict format, ...)
 		}
 		else
 		{
-			write(1, &(format[(env.curr)]), 1);
+			write(1, &(format[(env.curr)++]), 1);
 			(env.bytes)++;
-			(env.curr)++;
 		}
 	}
 	return (env.bytes);
