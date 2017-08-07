@@ -89,6 +89,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 	char		*ret;
 	char		*digits;
 
+	digits = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
 	if (value == 0)
 		return ("0");
 	neg = (value < 0 && base == 10) ? 1 : 0;
@@ -99,7 +100,6 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	digits = (upper_case) ? CAP_HEX : LOW_HEX;
 	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	if (neg)
@@ -396,59 +396,37 @@ void	parse_flag(t_env *env, const char *restrict format)
 	{
 		flag_found = 1;
 		if (format[(env->curr)] == '#')
-		{
 			env->octothorpe = 1;
-			(env->curr)++;
-		}
 		else if (format[(env->curr)] == '0')
-		{
 			env->zero = 1;
-			(env->curr)++;
-		}
 		else if (format[(env->curr)] == '-')
-		{
 			env->minus = 1;
-			(env->curr)++;
-		}
 		else if (format[(env->curr)] == '+')
-		{
 			env->plus = 1;
-			(env->curr)++;
-		}
 		else if (format[(env->curr)] == ' ')
-		{
 			env->space = 1;
-			(env->curr)++;
-		}
 		else if (format[(env->curr)] == 'z' || format[(env->curr)] == 'j')
-		{
 			(env->curr)++;
-		}
 		else if (format[(env->curr)] == 'l')
 		{
 			env->l = 1;
 			(env->curr)++;
 			if (format[(env->curr)] == 'l')
-			{
 				env->ll = 1;
-				(env->curr)++;
-			}
 		}
 		else if (format[(env->curr)] == 'h')
 		{
 			env->h = 1;
 			(env->curr)++;
 			if (format[(env->curr)] == 'h')
-			{
 				env->hh = 1;
-				(env->curr)++;
-			}
 		}
 		else
 		{
 			flag_found = 0;
 			escape++;
 		}
+		(env->curr)++;
 	}
 }
 
