@@ -87,7 +87,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 	int			neg;
 	int			size;
 	char		*ret;
-	char 		*digits;
+	char		*digits;
 
 	if (value == 0)
 		return ("0");
@@ -119,7 +119,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 	unsigned long long	currval;
 	int					size;
 	char				*ret;
-	char 				*digits;
+	char				*digits;
 
 	size = 1;
 	if (value == 0)
@@ -167,7 +167,7 @@ void	init_env(t_env *env)
 	reset_env(env);
 }
 
-void	print_percent(t_env *env, const char * restrict format)
+void	print_percent(t_env *env, const char *restrict format)
 {
 	while (format[(env->curr)] == '%')
 	{
@@ -339,10 +339,10 @@ void	printo(t_env *env, va_list ap)
 
 void	print_capital_o(t_env *env, va_list ap)
 {
-	uintmax_t 	d;
+	uintmax_t	d;
 	char		*str;
 
-	d = va_arg(ap, uintmax_t);	
+	d = va_arg(ap, uintmax_t);
 	print_u_nums(env, ap, 8, 0);
 	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
@@ -387,7 +387,7 @@ void	print_capital_x(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void	parse_flag(t_env *env, const char * restrict format)
+void	parse_flag(t_env *env, const char *restrict format)
 {
 	char	flag_found;
 	int		escape;
@@ -411,7 +411,6 @@ void	parse_flag(t_env *env, const char * restrict format)
 		{
 			env->minus = 1;
 			(env->curr)++;
-
 		}
 		else if (format[(env->curr)] == '+')
 		{
@@ -478,7 +477,7 @@ void	parse_conversion(t_env *env, const char *restrict format, va_list ap)
 	else if (format[(env->curr)] == 'u' || format[(env->curr)] == 'U')
 		print_u_nums(env, ap, 10, 0);
 	else if (format[(env->curr)] == 'X' || format[(env->curr)] == 'x')
-		format[(env->curr)] == 'x' ? printx(env, ap) : print_capital_x(env, ap); 
+		format[(env->curr)] == 'x' ? printx(env, ap) : print_capital_x(env, ap);
 	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
