@@ -1,4 +1,6 @@
 #include "libftprintf.h"
+#define CAP_HEX 0123456789ABCDEF
+#define LOW_HEX 0123456789abcdef
 
 size_t	ft_strlen(char const *str)
 {
@@ -102,7 +104,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	char *digits = (upper_case == 1) ? "0123456789ABCDEF" : "0123456789abcdef";
+	char *digits = (upper_case == 1) ? "CAP_HEX" : "LOW_HEX";
 	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	if (neg)
@@ -135,7 +137,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	digits = (upper_case == 1) ? ft_strdup("0123456789ABCDEF") : ft_strdup("0123456789abcdef");
+	digits = (upper_case == 1) ? ft_strdup("CAP_HEX") : ft_strdup("LOW_HEX");
 	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	currval = value;
