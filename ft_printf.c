@@ -85,7 +85,7 @@ void	find_precision(t_env *env, const char *restrict format)
 char	*ft_itoa_base(long long value, int base, int upper_case)
 {
 	FT_ITOA_BASE_DECLARATIONS;
-	digits = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
+	digit = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
 	if (value == 0)
 		return ("0");
 	neg = (value < 0 && base == 10) ? 1 : 0;
