@@ -473,16 +473,12 @@ void	parse_conversion(t_env *env, const char * restrict format, va_list ap)
 		printd(env, ap);
 	else if (format[(env->curr)] == 'D')
 		print_capital_d(env, ap);
-	else if (format[(env->curr)] == 'o')
-		printo(env, ap);
-	else if (format[(env->curr)] == 'O')
-		print_capital_o(env, ap);
+	else if (format[(env->curr)] == 'o' || format[(env->curr)] == 'O')
+		format[(env->curr)] == 'o' ? printo(env, ap) : print_capital_o(env, ap);
 	else if (format[(env->curr)] == 'u' || format[(env->curr)] == 'U')
 		print_u_nums(env, ap, 10, 0);
-	else if (format[(env->curr)] == 'x')
-		printx(env, ap);
-	else if (format[(env->curr)] == 'X')
-		print_capital_x(env, ap);
+	else if (format[(env->curr)] == 'X' || format[(env->curr)] == 'x')
+		format[(env->curr)] == 'x' ? printx(env, ap) : print_capital_x(env, ap); 
 	else if (format[(env->curr)] == 'c' || format[(env->curr)] == 'C')
 		printc(env, ap);
 	reset_env(env);
