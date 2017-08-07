@@ -99,7 +99,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	digits = (upper_case == 1) ? CAP_HEX : LOW_HEX;
+	digits = (upper_case) ? CAP_HEX : LOW_HEX;
 	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	if (neg)
@@ -130,7 +130,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 		size++;
 		currval /= base;
 	}
-	digits = (upper_case == 1) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
+	digits = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
 	ret = (char *)malloc(sizeof(char) * size--);
 	ret[size--] = '\0';
 	currval = value;
