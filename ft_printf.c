@@ -104,9 +104,7 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 	ret[size--] = '\0';
 	if (neg)
 		ret[0] = '-';
-	currval = value;
-	if (neg)
-		currval = -currval;
+	currval = (neg) ? -value : value;
 	while (currval > 0)
 	{
 		ret[size] = digits[currval % base];
