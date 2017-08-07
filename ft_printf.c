@@ -160,6 +160,13 @@ void	reset_env(t_env *env)
 	env->z = 0;
 }
 
+void	init_env(t_env *env)
+{
+	env->curr = 0;
+	env->bytes = 0;
+	reset_env(env);
+}
+
 void	print_percent(t_env *env, const char * restrict format)
 {
 	while (format[(env->curr)] == '%')
@@ -483,9 +490,7 @@ int		ft_printf(const char *restrict format, ...)
 	va_list	ap;
 
 	va_start(ap, format);
-	env.curr = 0;
-	env.bytes = 0;
-	reset_env(&env);
+	init_env(&env);
 	while (format[(env.curr)])
 	{
 		if (format[(env.curr)] == '%')
