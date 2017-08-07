@@ -89,13 +89,11 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 	char		*ret;
 
 	neg = 0;
-	size = 1;
 	if (value == 0)
 		return ("0");
 	if (value < 0 && base == 10)
 		neg = 1;
-	if (neg)
-		size++;
+	size = 1 + neg;
 	currval = value;
 	if (neg)
 		currval = -currval;
