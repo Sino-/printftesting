@@ -385,6 +385,58 @@ void	print_capital_x(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+void	set_octothorpe(t_env *env)
+{
+	env->octothorpe = 1;
+	(env->curr)++;
+}
+
+void	set_zero(t_env *env)
+{
+	env->zero = 1;
+	(env->curr)++;
+}
+
+void	set_minus(t_env *env)
+{
+	env->minus = 1;
+	(env->curr)++;
+}
+
+void	set_plus(t_env *env)
+{
+	env->plus = 1;
+	(env->curr)++;
+}
+
+void	set_space(t_env *env)
+{
+	env->space = 1;
+	(env->curr)++;
+}
+
+void	set_h(t_env *env, const char *restrict format)
+{
+	env->h = 1;
+	(env->curr)++;
+	if (format[(env->curr)] == 'h')
+	{
+		env->hh = 1;
+		(env->curr)++;
+	}
+}
+
+void	set_l(t_env *env, const char *restrict format)
+{
+	env->l = 1;
+	(env->curr)++;
+	if (format[(env->curr)] == 'l')
+	{
+		env->ll = 1;
+		(env->curr)++;
+	}
+}
+
 void	parse_flag(t_env *env, const char *restrict format)
 {
 	char	flag_found;
@@ -396,37 +448,26 @@ void	parse_flag(t_env *env, const char *restrict format)
 	{
 		flag_found = 1;
 		if (format[(env->curr)] == '#')
-			env->octothorpe = 1;
+			set_octothorpe(env);
 		else if (format[(env->curr)] == '0')
-			env->zero = 1;
+			set_zero(env);
 		else if (format[(env->curr)] == '-')
-			env->minus = 1;
+			set_minus(env);
 		else if (format[(env->curr)] == '+')
-			env->plus = 1;
+			set_plus(env);
 		else if (format[(env->curr)] == ' ')
-			env->space = 1;
+			set_space(env);
 		else if (format[(env->curr)] == 'z' || format[(env->curr)] == 'j')
 			(env->curr)++;
 		else if (format[(env->curr)] == 'l')
-		{
-			env->l = 1;
-			(env->curr)++;
-			if (format[(env->curr)] == 'l')
-				env->ll = 1;
-		}
+			set_l(env, format);
 		else if (format[(env->curr)] == 'h')
-		{
-			env->h = 1;
-			(env->curr)++;
-			if (format[(env->curr)] == 'h')
-				env->hh = 1;
-		}
+			set_h(env, format);
 		else
 		{
 			flag_found = 0;
 			escape++;
 		}
-		(env->curr)++;
 	}
 }
 
