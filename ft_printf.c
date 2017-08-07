@@ -437,16 +437,11 @@ void	set_l(t_env *env, const char *restrict format)
 	}
 }
 
-void	parse_flag(t_env *env, const char *restrict format)
+void	parse_flag(t_env *env, const char *restrict format, char found, int esc)
 {
-	char	flag_found;
-	int		escape;
-
-	escape = 1;
-	flag_found = 1;
-	while (flag_found || escape < 4)
+	while (found || esc < 4)
 	{
-		flag_found = 1;
+		found = 1;
 		if (format[(env->curr)] == '#')
 			set_octothorpe(env);
 		else if (format[(env->curr)] == '0')
@@ -465,8 +460,8 @@ void	parse_flag(t_env *env, const char *restrict format)
 			set_h(env, format);
 		else
 		{
-			flag_found = 0;
-			escape++;
+			found = 0;
+			esc++;
 		}
 	}
 }
@@ -474,7 +469,7 @@ void	parse_flag(t_env *env, const char *restrict format)
 void	parse_conversion(t_env *env, const char *restrict format, va_list ap)
 {
 	(env->curr)++;
-	parse_flag(env, format);
+	parse_flag(env, format, 1, 1);
 	find_width(env, format);
 	find_precision(env, format);
 	if (format[(env->curr)] == '%')
