@@ -93,12 +93,11 @@ char	*ft_itoa_base(long long value, int base, int upper_case)
 		return ("0");
 	neg = (value < 0 && base == 10) ? 1 : 0;
 	size = 1 + neg;
-	currval = value;
-	if (neg)
-		currval = -currval;
-	while ((currval /= base) > 0)
+	currval = (neg) ? -value : value;
+	while (currval > 0)
 	{
 		size++;
+		currval /= base;
 	}
 	digits = (upper_case == 1) ? CAP_HEX : LOW_HEX;
 	ret = (char *)malloc(sizeof(char) * size--);
