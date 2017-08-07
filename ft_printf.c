@@ -1,6 +1,7 @@
 #include "libftprintf.h"
 #define CAP_HEX "0123456789ABCDEF"
 #define LOW_HEX "0123456789abcdef"
+#define FT_ITOA_BASE_DECLARATIONS long long currval;int neg,size;char* ret,digit
 
 size_t	ft_strlen(char const *str)
 {
@@ -81,15 +82,10 @@ void	find_precision(t_env *env, const char *restrict format)
 	}
 }
 
-char	*ft_itoa_base(long long value, int base, int capitals)
+char	*ft_itoa_base(long long value, int base, int upper_case)
 {
-	long long	currval;
-	int			neg;
-	int			size;
-	char		*ret;
-	char		*digits;
-
-	digits = (capitals) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
+	FT_ITOA_BASE_DECLARATIONS;
+	digits = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
 	if (value == 0)
 		return ("0");
 	neg = (value < 0 && base == 10) ? 1 : 0;
@@ -107,33 +103,35 @@ char	*ft_itoa_base(long long value, int base, int capitals)
 	currval = (neg) ? -value : value;
 	while (currval > 0)
 	{
-		ret[size--] = digits[currval % base];
+		ret[size--] = digit[currval % base];
 		currval /= base;
 	}
 	return (ret);
 }
 
-char	*ft_itoa_ubase(unsigned long long value, long base, int capitals, int s)
+char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 {
 	unsigned long long	currval;
+	int					size;
 	char				*ret;
-	char				*digits;
+	char				*digit;
 
+	size = 1;
 	if (value == 0)
 		return ("0");
 	currval = value;
 	while (currval > 0)
 	{
-		s++;
+		size++;
 		currval /= base;
 	}
-	digits = (capitals) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
-	ret = (char *)malloc(sizeof(char) * s--);
-	ret[s--] = '\0';
+	digit = (upper_case) ? ft_strdup(CAP_HEX) : ft_strdup(LOW_HEX);
+	ret = (char *)malloc(sizeof(char) * size--);
+	ret[size--] = '\0';
 	currval = value;
 	while (currval > 0)
 	{
-		ret[s--] = digits[currval % base];
+		ret[size--] = digit[currval % base];
 		currval /= base;
 	}
 	return (ret);
@@ -233,13 +231,13 @@ void	prints(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
-void	print_nums(t_env *env, va_list ap, int base, int capitals)
+void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	long long	d;
 	char		*str;
 
 	d = va_arg(ap, int);
-	str = ft_itoa_base(d, base, capitals);
+	str = ft_itoa_base(d, base, upper_case);
 	if (env->plus && d >= 0)
 	{
 		write(1, "+", 1);
@@ -273,13 +271,13 @@ void	print_nums(t_env *env, va_list ap, int base, int capitals)
 	(env->curr)++;
 }
 
-void	print_u_nums(t_env *env, va_list ap, int base, int capitals)
+void	print_u_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	uintmax_t	d;
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_ubase(d, base, capitals, 1);
+	str = ft_itoa_ubase(d, base, upper_case);
 	while (*str)
 	{
 		write(1, str++, 1);
@@ -294,7 +292,7 @@ void	print_p(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_ubase(d, 16, 0, 1);
+	str = ft_itoa_ubase(d, 16, 0);
 	write(1, "0x", 2);
 	(env->bytes) += 2;
 	while (*str)
@@ -322,7 +320,7 @@ void	printo(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_ubase(d, 8, 0, 1);
+	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
 		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
 	while (*str)
@@ -340,7 +338,7 @@ void	print_capital_o(t_env *env, va_list ap)
 
 	d = va_arg(ap, uintmax_t);
 	print_u_nums(env, ap, 8, 0);
-	str = ft_itoa_ubase(d, 8, 0, 1);
+	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
 		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
 	while (*str)
@@ -357,7 +355,7 @@ void	printx(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_ubase(d, 16, 0, 1);
+	str = ft_itoa_ubase(d, 16, 0);
 	env->bytes += env->octothorpe == 1 ? write(1, "0x", 2) : 0;
 	while (*str)
 	{
@@ -373,7 +371,7 @@ void	print_capital_x(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	str = ft_itoa_ubase(d, 16, 1, 1);
+	str = ft_itoa_ubase(d, 16, 1);
 	env->bytes += env->octothorpe == 1 ? write(1, "0X", 2) : 0;
 	while (*str)
 	{
