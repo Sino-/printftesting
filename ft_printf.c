@@ -209,8 +209,7 @@ void	print_padding(t_env *env, char *str, char padding)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			if (env->precision)
-				(env->precision)--;
+			(env->precision)--;
 		}
 		while ((env->precision)-- > 0)
 		{
