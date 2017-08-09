@@ -139,7 +139,6 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 
 void	reset_env(t_env *env)
 {
-	//env->printed = 0;
 	env->width = 0;
 	env->precision = 0;
 	env->octothorpe = 0;
@@ -184,16 +183,12 @@ void	printc(t_env *env, va_list ap)
 
 void	print_string(t_env *env, char *str)
 {
-	unsigned int	precision;
-
-	precision = (env->precision);
-	if (precision)
+	if (env->precision)
 	{
-		while (precision)
+		while ((env->precision)--)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
-			precision--;
 		}
 	}
 	else
@@ -206,71 +201,28 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
-
-
-void	print_number_padding(t_env *env, char *str)
-{
-
-	unsigned int printed;
-	unsigned int chars_to_print;
-	
-	printed = 0;
-	if (env->width)
-	{
-		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		while (chars_to_print - (env->precision) > 0 && printed < env->width)
-		{
-			write(1, " ", 1);
-			(env->bytes)++;
-			chars_to_print--;
-			printed++;
-		}
-	}
-	if (env->precision)
-	{
-		chars_to_print = (env->precision > env->width) ? env->precision : env->width;
-		while(env->width > env->precision)
-		{
-			write(1, "0", 1);
-			(env->bytes)++;
-			chars_to_print--;
-			printed++;
-			(env->width)--;
-		}
-	}
-
-
-
-	// while(width > env->precision)
-	// {
-	// 	write(1, " ", 1);
-	// 	(env->bytes)++;
-	// 	width--;
-	// }
-	// while (width - ft_strlen(str))
-	// {
-	// 	write(1, "0", 1);
-	// 	(env->bytes)++;
-	// 	width--;
-	// }
-}
-
-
 void	print_padding(t_env *env, char *str, char padding)
 {
-	unsigned int printed;
-	unsigned int chars_to_print;
-	printed = 0;
 	if (env->width)
 	{
-		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		while (chars_to_print - (env->precision) > 0 && printed < env->width)
+		printf("\n\n WIDTH BEFORE LOOP IS |%d|", (env->width));
+		int chars_to_print;
+
+		chars_to_print = (ft_strlen(str) > env->precision) ? ft_strlen(str): env->precision;  
+
+		while ((env->width) - chars_to_print > 0)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			chars_to_print--;
-			printed++;
+			(env->width)--;
 		}
+		printf("\n\n WIDTH IS |%d|", (env->width));
+		// while ((env->precision) > 0)
+		// {
+		// 	write(1, &padding, 1);
+		// 	(env->bytes)++;
+		// 	(env->precision)--;
+		// }
 	}
 }
 
@@ -321,12 +273,12 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else if (env->zero)
 	{
-		print_number_padding(env, str);
+		print_padding(env, str, '0');
 		print_string(env, str);
 	}
 	else
 	{
-		print_number_padding(env, str);
+		print_padding(env, str, ' ');
 		print_string(env, str);
 	}
 	(env->curr)++;
