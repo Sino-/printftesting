@@ -207,7 +207,6 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
-	printf("\n\n PRECI BEGIN PADDING IS |%d|", (env->precision));
 	int printed;
 
 	printed = 0;
@@ -218,14 +217,18 @@ void	print_padding(t_env *env, char *str, char padding)
 		//int chars_to_print;
 
 		//chars_to_print = (ft_strlen(str) > env->precision) ? ft_strlen(str): env->precision;	
-		while ((env->width) - ft_strlen(str) > 0)
+		while ((env->width) - printed - ft_strlen(str) > 0)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			(env->width)--;
 			printed++;
 		}
-		if (printed < env->width)
+		while (printed < env->width)
+		{
+			write(1, &padding, 1);
+			(env->bytes)++;
+			printed++;
+		}
 		printf("\n Printed = |%d|\n", printed);
 		printf("\n\n WIDTH IS |%d|", (env->width));
 		printf("\n\n PRECI IS |%d|", (env->precision));
