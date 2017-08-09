@@ -212,8 +212,6 @@ void	print_padding(t_env *env, char *str, char padding)
 	printed = 0;
 	if (env->width)
 	{
-		printf("\n\n WIDTH BEFORE LOOP IS |%d|", (env->width));
-		printf("\n\n PRECI BEFORE LOOP IS |%d|", (env->precision));
 		int chars_to_print;
 
 		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
@@ -224,20 +222,6 @@ void	print_padding(t_env *env, char *str, char padding)
 			chars_to_print--;
 			printed++;
 		}
-		// while (printed < (env->precision))
-		// {
-		// 	write(1, &padding, 1);
-		// 	(env->bytes)++;
-		// }
-		printf("\n Printed = |%d|\n", printed);
-		printf("\n\n WIDTH IS |%d|", (env->width));
-		printf("\n\n PRECI IS |%d|", (env->precision));
-		// while ((env->precision) > 0)
-		// {
-		// 	write(1, &padding, 1);
-		// 	(env->bytes)++;
-		// 	(env->precision)--;
-		// }
 	}
 }
 
