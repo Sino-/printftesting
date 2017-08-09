@@ -205,6 +205,28 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
+
+
+void	print_number_padding(t_env *env, char *str)
+{
+	unsigned int width;
+
+	width = (env->width);
+	while(width > env->precision)
+	{
+		write(1, "0", 1);
+		(env->bytes)++;
+		width--;
+	}
+	while (width - ft_strlen(str))
+	{
+		write(1, "0", 1);
+		(env->bytes)++;
+		width--;
+	}
+}
+
+
 void	print_padding(t_env *env, char *str, char padding)
 {
 	int printed;
@@ -268,7 +290,7 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	if (env->minus)
 	{
 		print_string(env, str);
-		print_padding(env, str, ' ');
+		print_number_padding(env, str);
 	}
 	else if (env->zero)
 	{
@@ -277,7 +299,7 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else
 	{
-		print_padding(env, str, ' ');
+		print_number_padding(env, str);
 		print_string(env, str);
 	}
 	(env->curr)++;
