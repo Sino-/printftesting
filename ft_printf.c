@@ -218,7 +218,7 @@ void	print_number_padding(t_env *env, char *str)
 	if (env->width)
 	{
 		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		while (env->width > env->precision)
+		while (chars_to_print - (env->precision) > 0 && printed < env->width)
 		{
 			write(1, " ", 1);
 			(env->bytes)++;
@@ -229,7 +229,7 @@ void	print_number_padding(t_env *env, char *str)
 	if (env->precision)
 	{
 		chars_to_print = (env->precision > env->width) ? env->precision : env->width;
-		while(chars_to_print - (env->precision) > 0 && printed < env->width)
+		while(env->width > env->precision)
 		{
 			write(1, "0", 1);
 			(env->bytes)++;
