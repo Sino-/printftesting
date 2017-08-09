@@ -213,15 +213,20 @@ void	print_number_padding(t_env *env, char *str)
 
 	unsigned int printed;
 	unsigned int chars_to_print;
+	unsigned int width;
+
+	width = (env->width);
+	
 	printed = 0;
 	if (env->precision)
 	{
 		while(width > env->precision)
 		{
-			write(1, "0", 1);
+			write(1, " ", 1);
 			(env->bytes)++;
 			chars_to_print--;
 			printed++;
+			width--;
 		}
 	}
 	if (env->width)
@@ -236,9 +241,7 @@ void	print_number_padding(t_env *env, char *str)
 		}
 	}
 
-	// unsigned int width;
 
-	// width = (env->width);
 	// while(width > env->precision)
 	// {
 	// 	write(1, " ", 1);
