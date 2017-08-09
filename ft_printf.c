@@ -490,6 +490,7 @@ void	parse_conversion(t_env *env, const char *restrict format, va_list ap)
 	parse_flag(env, format, 1, 1);
 	find_width(env, format);
 	find_precision(env, format);
+	printf("\n\n\n precision captured: %d \n\n\n", (env->precision));
 	if (format[(env->curr)] == '%')
 		print_percent(env, format);
 	else if (format[(env->curr)] == 's')
