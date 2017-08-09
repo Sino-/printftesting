@@ -139,6 +139,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 
 void	reset_env(t_env *env)
 {
+	env->printed = 0;
 	env->width = 0;
 	env->precision = 0;
 	env->octothorpe = 0;
@@ -211,19 +212,19 @@ void	print_number_padding(t_env *env, char *str)
 {
 	unsigned int width;
 
-	// width = (env->width);
-	// while(width > env->precision)
-	// {
-	// 	write(1, "0", 1);
-	// 	(env->bytes)++;
-	// 	width--;
-	// }
-	// while (width - ft_strlen(str))
-	// {
-	// 	write(1, "0", 1);
-	// 	(env->bytes)++;
-	// 	width--;
-	// }
+	width = (env->width);
+	while(width > env->precision)
+	{
+		write(1, "0", 1);
+		(env->bytes)++;
+		width--;
+	}
+	while (width - ft_strlen(str))
+	{
+		write(1, "0", 1);
+		(env->bytes)++;
+		width--;
+	}
 }
 
 
@@ -234,8 +235,6 @@ void	print_padding(t_env *env, char *str, char padding)
 	printed = 0;
 	if (env->width)
 	{
-		
-
 		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
 		while (chars_to_print - (env->precision) > 0 && printed < env->width)
 		{
