@@ -216,7 +216,7 @@ void	print_padding(t_env *env, char *str, char padding)
 		printf("\n\n PRECI BEFORE LOOP IS |%d|", (env->precision));
 		int chars_to_print;
 
-		chars_to_print = (ft_strlen(str) > env->precision) ? ft_strlen(str): env->precision;	
+		chars_to_print = (ft_strlen(str) < env->precision) ? ft_strlen(str): env->precision;	
 		while ((env->width) - chars_to_print > 0)
 		{
 			write(1, &padding, 1);
