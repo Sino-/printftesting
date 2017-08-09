@@ -205,10 +205,10 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
-void	print_padding(t_env *env, char *str, char padding)
+void	print_padding(t_env *env, char padding)
 {
-	int printed;
-	int chars_to_print;
+	unsigned int printed;
+	unsigned int chars_to_print;
 
 	printed = 0;
 	if (env->width)
@@ -250,11 +250,11 @@ void	prints(t_env *env, va_list ap)
 	if (env->minus)
 	{
 		print_string(env, str);
-		print_padding(env, str, ' ');
+		print_padding(env, ' ');
 	}
 	else
 	{
-		print_padding(env, str, ' ');
+		print_padding(env, ' ');
 		print_string(env, str);
 	}
 	(env->curr)++;
