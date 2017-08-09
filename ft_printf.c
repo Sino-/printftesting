@@ -214,7 +214,6 @@ void	print_padding(t_env *env, char *str, char padding)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			chars_to_print++;
 			(env->width)--;
 		}
 		printf("\n\n WIDTH IS |%d|", (env->width));
@@ -279,6 +278,7 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else
 	{
+		printf("\n ELSE \n");
 		print_padding(env, str, ' ');
 		print_string(env, str);
 	}
