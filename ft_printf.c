@@ -208,12 +208,11 @@ void	print_string(t_env *env, char *str)
 void	print_padding(t_env *env, char *str, char padding)
 {
 	int printed;
+	int chars_to_print;
 
 	printed = 0;
 	if (env->width)
 	{
-		int chars_to_print;
-
 		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
 		while (chars_to_print - (env->precision) > 0 && printed < env->width)
 		{
@@ -223,6 +222,30 @@ void	print_padding(t_env *env, char *str, char padding)
 			printed++;
 		}
 	}
+}
+
+void	print_number_padding(t_env *env, char *str)
+{
+	//int printed;
+
+	//printed = 0;
+	if (env->precision)
+	{
+
+		printf("\n all tests except number padding should work\n");
+		// int chars_to_print;
+
+		// chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
+		// while (chars_to_print - (env->precision) > 0 && printed < env->width)
+		// {
+		// 	write(1, &padding, 1);
+		// 	(env->bytes)++;
+		// 	chars_to_print--;
+		// 	printed++;
+		// }
+	}
+	else
+		print_padding(env, str, '0');
 }
 
 void	prints(t_env *env, va_list ap)
@@ -268,16 +291,16 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	if (env->minus)
 	{
 		print_string(env, str);
-		print_padding(env, str, ' ');
+		print_number_padding(env, str);
 	}
 	else if (env->zero)
 	{
-		print_padding(env, str, '0');
+		print_number_padding(env, str);
 		print_string(env, str);
 	}
 	else
 	{
-		print_padding(env, str, ' ');
+		print_number_padding(env, str);
 		print_string(env, str);
 	}
 	(env->curr)++;
