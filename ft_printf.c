@@ -139,7 +139,7 @@ char	*ft_itoa_ubase(unsigned long long value, long base, int upper_case)
 
 void	reset_env(t_env *env)
 {
-	env->printed = 0;
+	//env->printed = 0;
 	env->width = 0;
 	env->precision = 0;
 	env->octothorpe = 0;
