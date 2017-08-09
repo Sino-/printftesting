@@ -203,6 +203,9 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
+	int count;
+
+	count = 0;
 	if (env->width)
 	{
 		printf("\n\n WIDTH BEFORE LOOP IS |%d|", (env->width));
@@ -210,11 +213,12 @@ void	print_padding(t_env *env, char *str, char padding)
 
 		chars_to_print = (ft_strlen(str) > env->precision) ? ft_strlen(str): env->precision;  
 
-		while ((env->width) - chars_to_print > 0)
+		while ((env->width) - chars_to_print > 0 && count < chars_to_print)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
 			(env->width)--;
+			count++;
 		}
 		printf("\n\n WIDTH IS |%d|", (env->width));
 		// while ((env->precision) > 0)
@@ -278,7 +282,6 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else
 	{
-		printf("\n ELSE \n");
 		print_padding(env, str, ' ');
 		print_string(env, str);
 	}
