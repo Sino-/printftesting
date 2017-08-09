@@ -226,26 +226,20 @@ void	print_padding(t_env *env, char *str, char padding)
 
 void	print_number_padding(t_env *env, char *str)
 {
-	//int printed;
+	unsigned int width;
 
-	//printed = 0;
-	if (env->precision)
+	width = (env->width);
+	while(width-- > env->precision)
 	{
-
-		printf("\n all tests except number padding should work\n");
-		// int chars_to_print;
-
-		// chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		// while (chars_to_print - (env->precision) > 0 && printed < env->width)
-		// {
-		// 	write(1, &padding, 1);
-		// 	(env->bytes)++;
-		// 	chars_to_print--;
-		// 	printed++;
-		// }
+		write(1, " ", 1);
+		(env->bytes)++;
 	}
-	else
-		print_padding(env, str, '0');
+	while (width - ft_strlen(str))
+	{
+		write(1, "0", 1);
+		(env->bytes)++;
+		width--;
+	}
 }
 
 void	prints(t_env *env, va_list ap)
