@@ -205,10 +205,10 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
-void	print_padding(t_env *env, char padding)
+void	print_padding(t_env *env, char *str, char padding)
 {
-	unsigned int printed;
-	unsigned int chars_to_print;
+	int printed;
+	int chars_to_print;
 
 	printed = 0;
 	if (env->width)
@@ -226,20 +226,23 @@ void	print_padding(t_env *env, char padding)
 
 void	print_number_padding(t_env *env, char *str)
 {
-	unsigned int width;
+	//int printed;
 
-	width = (env->width);
-	while(width-- > env->precision)
+	//printed = 0;
+	if (env->precision)
 	{
-		write(1, " ", 1);
-		(env->bytes)++;
+
+		// chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
+		// while (chars_to_print - (env->precision) > 0 && printed < env->width)
+		// {
+		// 	write(1, &padding, 1);
+		// 	(env->bytes)++;
+		// 	chars_to_print--;
+		// 	printed++;
+		// }
 	}
-	while (width - ft_strlen(str))
-	{
-		write(1, "0", 1);
-		(env->bytes)++;
-		width--;
-	}
+	else
+		print_padding(env, str, '0');
 }
 
 void	prints(t_env *env, va_list ap)
@@ -250,11 +253,11 @@ void	prints(t_env *env, va_list ap)
 	if (env->minus)
 	{
 		print_string(env, str);
-		print_padding(env, ' ');
+		print_padding(env, str, ' ');
 	}
 	else
 	{
-		print_padding(env, ' ');
+		print_padding(env, str, ' ');
 		print_string(env, str);
 	}
 	(env->curr)++;
