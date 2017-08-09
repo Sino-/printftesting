@@ -77,6 +77,7 @@ void	find_precision(t_env *env, const char *restrict format)
 		while (ft_isdigit(format[(env->curr)]) == 1)
 		{
 			(env->precision) = (env->precision * 10) + format[(env->curr)] - 48;
+			printf("\n\n HERE IS PRECISION: |%d|\n", (env->precision));
 			(env->curr)++;
 		}
 	}
@@ -214,19 +215,14 @@ void	print_padding(t_env *env, char *str, char padding)
 		//int chars_to_print;
 
 		//chars_to_print = (ft_strlen(str) > env->precision) ? ft_strlen(str): env->precision;	
-		while ((env->width) - printed - ft_strlen(str) > 0)
-		{
-			write(1, &padding, 1);
-			(env->bytes)++;
-			printed++;
-		}
-		while ((printed + env->precision) < (env->width))
+		while ((env->width) - ft_strlen(str) > 0)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
 			(env->width)--;
 			printed++;
 		}
+		if (printed < env->width)
 		printf("\n Printed = |%d|\n", printed);
 		printf("\n\n WIDTH IS |%d|", (env->width));
 		printf("\n\n PRECI IS |%d|", (env->precision));
