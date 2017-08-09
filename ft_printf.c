@@ -225,7 +225,7 @@ void	print_padding(t_env *env, char *str, char padding)
 			write(1, &padding, 1);
 			(env->bytes)++;
 			(env->width)--;
-			pri
+			printed++;
 		}
 		printf("\n Printed = |%d|\n", printed);
 		printf("\n\n WIDTH IS |%d|", (env->width));
