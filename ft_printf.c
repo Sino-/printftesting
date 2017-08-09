@@ -184,13 +184,16 @@ void	printc(t_env *env, va_list ap)
 
 void	print_string(t_env *env, char *str)
 {
-	if (env->precision)
+	unsigned int	precision;
+
+	precision = (env->precision);
+	if (precision)
 	{
-		while ((env->precision))
+		while (precision)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
-			(env->precision)--;
+			precision--;
 		}
 	}
 	else
@@ -205,6 +208,7 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
+	printf("\n\n PRECI BEGIN PADDING IS |%d|", (env->precision));
 	int printed;
 
 	printed = 0;
