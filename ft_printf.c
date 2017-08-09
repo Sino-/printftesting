@@ -77,6 +77,7 @@ void	find_precision(t_env *env, const char *restrict format)
 		while (ft_isdigit(format[(env->curr)]) == 1)
 		{
 			(env->precision) = (env->precision * 10) + format[(env->curr)] - 48;
+			printf("\n\n HERE IS PRECISION: |%d|\n", (env->precision));
 			(env->curr)++;
 		}
 	}
