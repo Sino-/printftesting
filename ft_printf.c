@@ -209,31 +209,31 @@ void	print_number_padding(t_env *env, char *str)
 	//unsigned int chars_to_print;
 	
 	//printed = 0;
-	while ((env->width) > env->precision && !(env->zero))
-	{
-		//chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		//while (chars_to_print - (env->precision) > 0 && printed < env->width)
-		//{
-			write(1, " ", 1);
-			(env->bytes)++;
-		//	chars_to_print--;
-		//	printed++;
-			(env->width)--;
-		//}
-	}
-	while (((env->precision) - ft_strlen(str)) > 0)
-	{
-		//chars_to_print = (env->precision > env->width) ? env->precision : env->width;
-		//while(env->width > env->precision)
-		//{
-			write(1, "0", 1);
-			(env->bytes)++;
-		//	chars_to_print--;
-		//	printed++;
-		//	(env->width)--;
-			(env->precision)--;
-		//}
-	}
+	// while ((env->width) > env->precision && !(env->zero))
+	// {
+	// 	//chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
+	// 	//while (chars_to_print - (env->precision) > 0 && printed < env->width)
+	// 	//{
+	// 		write(1, " ", 1);
+	// 		(env->bytes)++;
+	// 	//	chars_to_print--;
+	// 	//	printed++;
+	// 		(env->width)--;
+	// 	//}
+	// }
+	// while (((env->precision) - ft_strlen(str)) > 0)
+	// {
+	// 	//chars_to_print = (env->precision > env->width) ? env->precision : env->width;
+	// 	//while(env->width > env->precision)
+	// 	//{
+	// 		write(1, "0", 1);
+	// 		(env->bytes)++;
+	// 	//	chars_to_print--;
+	// 	//	printed++;
+	// 	//	(env->width)--;
+	// 		(env->precision)--;
+	// 	//}
+	// }
 
 
 
