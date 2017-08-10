@@ -180,7 +180,7 @@ void	printc(t_env *env, va_list ap)
 	(env->bytes)++;
 	(env->curr)++;
 }
-
+/* TESTING REPLACEMENT BELOW
 void	print_string(t_env *env, char *str)
 {
 	if (env->precision)
@@ -200,6 +200,31 @@ void	print_string(t_env *env, char *str)
 		}
 	}
 }
+*/
+void	print_string(t_env *env, char *str)
+{
+	unsigned int	precision;
+
+	precision = (env->precision);
+	if (precision)
+	{
+		while (precision)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+			precision--;
+		}
+	}
+	else
+	{
+		while (*str)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+		}
+	}
+}
+
 
 void	print_padding(t_env *env, char *str, char padding)
 {
@@ -518,3 +543,62 @@ int		ft_printf(const char *restrict format, ...)
 	}
 	return (env.bytes);
 }
+
+/*
+void	print_string(t_env *env, char *str)
+{
+	unsigned int	precision;
+
+	precision = (env->precision);
+	if (precision)
+	{
+		while (precision)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+			precision--;
+		}
+	}
+	else
+	{
+		while (*str)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+		}
+	}
+}
+
+void	print_numbers_padding(t_env *env, char *str, char padding)
+{
+	int width;
+
+	width = (env->precision > env->width) ? env->precision : env->width;
+	if (width)
+	{
+		while (width - (env->precision) > 0)
+		{
+			write(1, &padding, 1);
+			(env->bytes)++;
+			width--;
+		}
+	}
+}
+
+
+void	print_padding(t_env *env, char *str, char padding)
+{
+	int width;
+
+	width = (env->precision > env->width) ? env->precision : env->width;
+	if (width)
+	{
+		while (width - (env->precision) > 0)
+		{
+			write(1, &padding, 1);
+			(env->bytes)++;
+			width--;
+		}
+	}
+}
+*/
