@@ -584,7 +584,7 @@ int		ft_printf(const char *restrict format, ...)
 
 
 /////// OLDER VERSION BELOW /////
-
+/*
 
 #include "libftprintf.h"
 #define CAP_HEX "0123456789ABCDEF"
@@ -1119,3 +1119,4 @@ int		ft_printf(const char *restrict format, ...)
 	}
 	return (env.bytes);
 }
+*/
