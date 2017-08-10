@@ -183,16 +183,12 @@ void	printc(t_env *env, va_list ap)
 
 void	print_string(t_env *env, char *str)
 {
-	unsigned int	precision;
-
-	precision = (env->precision);
-	if (precision)
+	if (env->precision)
 	{
-		while (precision)
+		while ((env->precision)--)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
-			precision--;
 		}
 	}
 	else
@@ -207,16 +203,12 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
-	int width;
-
-	width = (env->precision > env->width) ? env->precision : env->width;
-	if (width)
+	if (env->width)
 	{
-		while (width - (env->precision) > 0)
+		while (((env->width)-- - ft_strlen(str)) > 0)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			width--;
 		}
 	}
 }
