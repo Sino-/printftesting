@@ -207,20 +207,16 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
-	int printed;
+	int width;
 
-	printed = 0;
-	if (env->width)
+	width = (env->width);
+	if (width)
 	{
-		int chars_to_print;
-
-		chars_to_print = (env->precision > env->width) ? env->precision : env->width;	
-		while (chars_to_print - (env->precision) > 0)
+		while (width - (env->precision) > 0)
 		{
 			write(1, &padding, 1);
 			(env->bytes)++;
-			chars_to_print--;
-			printed++;
+			width--;
 		}
 	}
 }
