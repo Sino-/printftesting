@@ -209,7 +209,7 @@ void	print_padding(t_env *env, char *str, char padding)
 {
 	int width;
 
-	width = (env->width);
+	width = (env->precision > env->width) ? env->precision : env->width;
 	if (width)
 	{
 		while (width - (env->precision) > 0)
