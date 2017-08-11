@@ -263,6 +263,7 @@ void	print_number_padding(t_env *env, char *str)
 		//printf("\nWIDTH |%d| || precision |%d| || ft_strlen |%d|\n", (env->width),(env->precision), ft_strlen(str));
 		while ((env->width) > (env->precision))
 		{
+			write(1, "!", 1);
 			write(1, " ", 1);
 			(env->bytes)++;
 			(env->width)--;
