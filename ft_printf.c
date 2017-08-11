@@ -240,6 +240,43 @@ void	prints(t_env *env, va_list ap)
 	(env->curr)++;
 }
 
+void	print_number_padding(t_env *env, char *str, char padding)
+{
+	if (env->width)
+	{
+
+		while (((env->width)-- - ft_strlen(str)) > 0)
+		{
+			write(1, &padding, 1);
+			(env->bytes)++;
+		}
+	}
+}
+
+void	print_number_string(t_env *env, char *str)
+{
+	unsigned int	precision;
+
+	precision = (env->precision);
+	if (precision)
+	{
+		while (precision)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+			precision--;
+		}
+	}
+	else
+	{
+		while (*str)
+		{
+			write(1, str++, 1);
+			(env->bytes)++;
+		}
+	}
+}
+
 void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	long long	d;
@@ -264,18 +301,18 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 		}
 	if (env->minus)
 	{
-		print_string(env, str);
-		print_padding(env, str, ' ');
+		print_number_string(env, str);
+		print_number_padding(env, str, ' ');
 	}
 	else if (env->zero)
 	{
-		print_padding(env, str, '0');
-		print_string(env, str);
+		print_number_padding(env, str, '0');
+		print_number_string(env, str);
 	}
 	else
 	{
-		print_padding(env, str, ' ');
-		print_string(env, str);
+		print_number_padding(env, str, ' ');
+		print_number_string(env, str);
 	}
 	(env->curr)++;
 }
