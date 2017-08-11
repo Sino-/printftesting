@@ -246,6 +246,7 @@ void	print_number_padding(t_env *env, char *str)
 	{
 		while ((env->width)-- > ft_strlen(str))
 		{
+			write(1, "Y", 1);
 			write(1, "0", 1);
 			(env->bytes)++;
 		}
@@ -254,6 +255,7 @@ void	print_number_padding(t_env *env, char *str)
 	{
 		while ((env->width)-- > ft_strlen(str))
 		{
+			write(1, "X", 1);
 			write(1, " ", 1);
 			(env->bytes)++;
 		}
