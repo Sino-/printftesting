@@ -208,7 +208,7 @@ void	print_string(t_env *env, char *str)
 
 void	print_padding(t_env *env, char *str, char padding)
 {
-	unsigned int = len;
+	unsigned int len;
 
 	len = (env->precision) < ft_strlen(str) ? (env->precision) : ft_strlen(str);
 	if (env->width)
