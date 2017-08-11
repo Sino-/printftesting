@@ -242,15 +242,7 @@ void	prints(t_env *env, va_list ap)
 
 void	print_number_padding(t_env *env, char *str)
 {
-	if ((env->width > env->precision) && (env->zero))
-	{
-		while ((env->width)-- > (env->precision))
-		{
-			write(1, "0", 1);
-			(env->bytes)++;
-		}
-	}
-	else if (env->width > env->precision)
+	if (env->width > env->precision)
 	{
 		while ((env->width)-- > (env->precision))
 		{
