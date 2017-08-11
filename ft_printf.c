@@ -205,7 +205,6 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
-
 void	print_padding(t_env *env, char *str, char padding)
 {
 	unsigned int len;
@@ -213,7 +212,6 @@ void	print_padding(t_env *env, char *str, char padding)
 	len = (env->precision) < ft_strlen(str) ? (env->precision) : ft_strlen(str);
 	if (env->width)
 	{
-
 		while (((env->width)-- - len) > 0)
 		{
 			write(1, &padding, 1);
@@ -249,7 +247,7 @@ void	print_number_padding(t_env *env, char *str)
 			write(1, "0", 1);
 			(env->bytes)++;
 		}
- 	}
+	}
 	else if (env->precision > ft_strlen(str) ||
 		(env->zero) && (ft_strlen(str) - env->precision) < env->width)
 	{
@@ -290,6 +288,18 @@ void	print_number_string(t_env *env, char *str)
 	}
 }
 
+void	print_minus(t_env *env, char *str)
+{
+	print_number_string(env, str);
+	print_number_padding(env, str);
+}
+
+void	print_numbers(t_env *env, char *str)
+{
+	print_number_string(env, str);
+	print_number_padding(env, str);
+}
+
 void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 {
 	long long	d;
@@ -313,15 +323,9 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 				(env->width)--;
 		}
 	if (env->minus)
-	{
-		print_number_string(env, str);
-		print_number_padding(env, str);
-	}
+		print_minus(env, str);
 	else
-	{
-		print_number_padding(env, str);
-		print_number_string(env, str);
-	}
+		print_numbers(env, str);
 	(env->curr)++;
 }
 
@@ -526,8 +530,6 @@ void	parse_conversion(t_env *env, const char *restrict format, va_list ap)
 		print_percent(env, format);
 	else if (format[(env->curr)] == 's')
 		prints(env, ap);
-	//else if (format[(env->curr)] == 'S')
-	//printS(env, ap);
 	else if (format[(env->curr)] == 'p')
 		print_p(env, ap);
 	else if (format[(env->curr)] == 'd' || format[(env->curr)] == 'i')
@@ -572,40 +574,3 @@ int		ft_printf(const char *restrict format, ...)
 	}
 	return (env.bytes);
 }
-
-/*
-
-
-void	print_numbers_padding(t_env *env, char *str, char padding)
-{
-	int width;
-
-	width = (env->precision > env->width) ? env->precision : env->width;
-	if (width)
-	{
-		while (width - (env->precision) > 0)
-		{
-			write(1, &padding, 1);
-			(env->bytes)++;
-			width--;
-		}
-	}
-}
-
-
-void	print_padding(t_env *env, char *str, char padding)
-{
-	int width;
-
-	width = (env->precision > env->width) ? env->precision : env->width;
-	if (width)
-	{
-		while (width - (env->precision) > 0)
-		{
-			write(1, &padding, 1);
-			(env->bytes)++;
-			width--;
-		}
-	}
-}
-*/
