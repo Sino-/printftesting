@@ -244,18 +244,19 @@ void	print_number_padding(t_env *env, char *str)
 {
 	if(env->zero)
 	{
-		if ((ft_strlen(str) + env->precision) < env->width)
-		{
-			while ((env->width)-- > ft_strlen(str))
-			{
-				write(1, "0", 1);
-				(env->bytes)++;
-			}
- 		else if ((ft_strlen(str) - env->precision) < env->width)
+		if ((ft_strlen(str) - env->precision) < env->width)
 		{
 			while ((env->width)-- > ft_strlen(str))
 			{
 				write(1, " ", 1);
+				(env->bytes)++;
+			}
+		}
+		else if ((ft_strlen(str) + env->precision) < env->width)
+		{
+			while ((env->width)-- > ft_strlen(str))
+			{
+				write(1, "0", 1);
 				(env->bytes)++;
 			}
 		}
