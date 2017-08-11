@@ -244,6 +244,7 @@ void	print_number_padding(t_env *env, char *str)
 {
 	if ((env->zero) && (ft_strlen(str) + env->precision) < env->width)
 	{
+		write(1, "\nCASEA\n", 7);
 		while ((env->width)-- > ft_strlen(str))
 		{
 			write(1, "0", 1);
@@ -252,6 +253,7 @@ void	print_number_padding(t_env *env, char *str)
  	}
  	else if ((env->zero) && (ft_strlen(str) - env->precision) < env->width)
 	{
+		write(1, "\nCASEB\n", 7);
 		while ((env->width)-- > ft_strlen(str))
 		{
 			write(1, " ", 1);
@@ -260,6 +262,7 @@ void	print_number_padding(t_env *env, char *str)
  	}
 	else
 	{
+		write(1, "\nCASEc\n", 7);
 		while ((env->width)-- > (ft_strlen(str) + (env->precision)))
 		{
 			write(1, " ", 1);
