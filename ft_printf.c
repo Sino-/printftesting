@@ -260,7 +260,7 @@ void	print_number_padding(t_env *env, char *str)
  	}
 	else
 	{
-		printf("\nPRECISION |%d| || WIDTH |%d| || ft_strlen |%d|\n", (env->width),(env->precision), ft_strlen(str));
+		printf("\nPRECISION |%d| || WIDTH |%d| || ft_strlen |%d|\n", env->precision), (env->width), ft_strlen(str));
 		while ((env->width)-- > (ft_strlen(str) + (env->precision)))
 		{
 			write(1, " ", 1);
