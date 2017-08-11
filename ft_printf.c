@@ -267,7 +267,7 @@ void	print_number_string(t_env *env, char *str)
 	precision = (env->precision);
 	if (precision)
 	{
-		while (precision > 0)
+		while (precision - ft_strlen(str) > 0)
 		{
 			write(1, "0", 1);
 			(env->bytes)++;
@@ -308,11 +308,6 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 		print_number_string(env, str);
 		print_number_padding(env, str);
 	}
-	//else if (env->zero)
-	//{
-//		print_number_padding(env, str);
-//		print_number_string(env, str);
-//	}
 	else
 	{
 		print_number_padding(env, str);
