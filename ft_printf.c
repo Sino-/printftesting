@@ -296,8 +296,8 @@ void	print_minus(t_env *env, char *str)
 
 void	print_numbers(t_env *env, char *str)
 {
-	print_number_string(env, str);
 	print_number_padding(env, str);
+	print_number_string(env, str);
 }
 
 void	print_nums(t_env *env, va_list ap, int base, int upper_case)
