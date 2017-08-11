@@ -244,7 +244,7 @@ void	print_number_padding(t_env *env, char *str)
 {
 	if (env->zero)
 	{
-		if (env->zero && (ft_strlen(str) + env->precision) > env->width)
+		if (env->zero && (ft_strlen(str) + env->precision) < env->width)
 		{
 
 		}
