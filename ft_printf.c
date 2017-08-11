@@ -205,22 +205,7 @@ void	print_string(t_env *env, char *str)
 	}
 }
 
-void	print_padding(t_env *env, char *str, char padding)
-{
-	int width;
 
-	width = (env->precision > env->width) ? env->precision : env->width;
-	if (width)
-	{
-		while (width - (env->precision) > 0)
-		{
-			write(1, &padding, 1);
-			(env->bytes)++;
-			width--;
-		}
-	}
-}
-/* TESTING REPLACEMENT PRINT PDDING ABOVE
 void	print_padding(t_env *env, char *str, char padding)
 {
 	if (env->width)
@@ -232,7 +217,7 @@ void	print_padding(t_env *env, char *str, char padding)
 		}
 	}
 }
-*/
+
 void	prints(t_env *env, va_list ap)
 {
 	char	*str;
@@ -541,6 +526,7 @@ int		ft_printf(const char *restrict format, ...)
 
 /*
 
+
 void	print_numbers_padding(t_env *env, char *str, char padding)
 {
 	int width;
@@ -556,6 +542,7 @@ void	print_numbers_padding(t_env *env, char *str, char padding)
 		}
 	}
 }
+
 
 void	print_padding(t_env *env, char *str, char padding)
 {
