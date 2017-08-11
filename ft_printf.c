@@ -260,7 +260,7 @@ void	print_number_string(t_env *env, char *str)
 	precision = (env->precision);
 	// if (precision)
 	// {
-		while (precision - ft_strlen(str) > 0)
+		while (precision > ft_strlen(str))
 		{
 			write(1, "0", 1);
 			(env->bytes)++;
