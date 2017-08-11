@@ -303,7 +303,7 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else if (env->zero)
 	{
-		print_number_padding(env, str);
+		print_padding(env, str, "0");
 		print_number_string(env, str);
 	}
 	else
