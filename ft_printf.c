@@ -258,23 +258,23 @@ void	print_number_string(t_env *env, char *str)
 	unsigned int	precision;
 
 	precision = (env->precision);
-	// if (precision)
-	// {
-		while (precision > ft_strlen(str))
+	if (precision)
+	{
+		while (precision - ft_strlen(str) > 0)
 		{
 			write(1, "0", 1);
 			(env->bytes)++;
 			precision--;
 		}
-	// }
-	// else
-	// {
+	}
+	else
+	{
 		while (*str)
 		{
 			write(1, str++, 1);
 			(env->bytes)++;
 		}
-	// }
+	}
 }
 
 void	print_nums(t_env *env, va_list ap, int base, int upper_case)
@@ -306,7 +306,7 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 	}
 	else if (env->zero)
 	{
-		print_padding(env, str, '0');
+		print_number_padding(env, str, '0');
 		print_number_string(env, str);
 	}
 	else
