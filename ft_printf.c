@@ -267,13 +267,10 @@ void	print_number_string(t_env *env, char *str)
 			precision--;
 		}
 	}
-	else
+	while (*str)
 	{
-		while (*str)
-		{
-			write(1, str++, 1);
-			(env->bytes)++;
-		}
+		write(1, str++, 1);
+		(env->bytes)++;
 	}
 }
 
