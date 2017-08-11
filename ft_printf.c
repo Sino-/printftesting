@@ -242,20 +242,22 @@ void	prints(t_env *env, va_list ap)
 
 void	print_number_padding(t_env *env, char *str)
 {
-	if ((env->zero) && (ft_strlen(str) + env->precision) < env->width)
+	if(env->zero)
 	{
-		while ((env->width)-- > ft_strlen(str))
+		if ((ft_strlen(str) + env->precision) < env->width)
 		{
-			write(1, "0", 1);
-			(env->bytes)++;
-		}
- 	}
- 	else if ((env->zero) && (ft_strlen(str) - env->precision) < env->width)
-	{
-		while ((env->width)-- > ft_strlen(str))
+			while ((env->width)-- > ft_strlen(str))
+			{
+				write(1, "0", 1);
+				(env->bytes)++;
+			}
+ 		else if ((ft_strlen(str) - env->precision) < env->width)
 		{
-			write(1, " ", 1);
-			(env->bytes)++;
+			while ((env->width)-- > ft_strlen(str))
+			{
+				write(1, " ", 1);
+				(env->bytes)++;
+			}
 		}
  	}
 	else
