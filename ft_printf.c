@@ -266,7 +266,7 @@ void	print_number_padding(t_env *env, char *str)
 			(env->bytes)++;
 			(env->width)--;
 		}
-	{
+	}
 	else
 	{
 		//printf("\nWIDTH |%d| || precision |%d| || ft_strlen |%d|\n", (env->width),(env->precision), ft_strlen(str));
