@@ -258,7 +258,8 @@ void	print_number_padding(t_env *env, char *str)
 	// 		(env->bytes)++;
 	// 	}
  // 	}
-	else if (env->precision > ft_strlen(str))
+	else if (env->precision > ft_strlen(str) ||
+		(env->zero) && (ft_strlen(str) - env->precision) < env->width)
 	{
 		while ((env->width) > (env->precision))
 		{
