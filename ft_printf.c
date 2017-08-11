@@ -242,7 +242,7 @@ void	prints(t_env *env, va_list ap)
 
 void	print_number_padding(t_env *env, char *str)
 {
-	if (env->width)
+	if (env->width > env->precision)
 	{
 		while (((env->width)-- - ft_strlen(str)) > (env->precision))
 		{
@@ -257,8 +257,8 @@ void	print_number_string(t_env *env, char *str)
 	unsigned int	precision;
 
 	precision = (env->precision);
-
-	if (precision > env->width)
+	//(env->zero) check for this
+	if (precision)
 	{
 		while (precision - ft_strlen(str) > 0)
 		{
@@ -301,11 +301,11 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 		print_number_string(env, str);
 		print_number_padding(env, str);
 	}
-	else if (env->zero)
-	{
-		print_number_padding(env, str);
-		print_number_string(env, str);
-	}
+	//else if (env->zero)
+	//{
+//		print_number_padding(env, str);
+//		print_number_string(env, str);
+//	}
 	else
 	{
 		print_number_padding(env, str);
