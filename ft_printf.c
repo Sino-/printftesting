@@ -250,12 +250,6 @@ void	print_number_padding(t_env *env, char *str, char padding)
 			(env->bytes)++;
 		}
 	}
-	while ((env->width)-- > env->precision)
-	{
-		write(1, " ", 1);
-		(env->bytes)++;
-	}
-
 }
 
 void	print_number_string(t_env *env, char *str)
