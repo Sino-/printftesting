@@ -301,11 +301,11 @@ void	print_nums(t_env *env, va_list ap, int base, int upper_case)
 		print_number_string(env, str);
 		print_number_padding(env, str);
 	}
-	//else if (env->zero)
-	//{
-//		print_number_padding(env, str);
-//		print_number_string(env, str);
-//	}
+	else if (env->zero)
+	{
+		print_number_padding(env, str);
+		print_number_string(env, str);
+	}
 	else
 	{
 		print_number_padding(env, str);
