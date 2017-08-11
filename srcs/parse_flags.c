@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_flags.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yolabi <yolabi@student.42.us.org>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/10 22:12:20 by yolabi            #+#    #+#             */
+/*   Updated: 2017/08/10 22:17:51 by yolabi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void	parse_flags(t_env *env, const char *restrict format, char found, int esc)
+void	parse_flags(t_env *env, const char *restrict format, char fnd, int esc)
 {
-	while (found || esc < 4)
+	while (fnd || esc < 4)
 	{
-		found = 1;
+		fnd = 1;
 		if (format[(env->curr)] == '#')
 			set_octothorpe(env);
 		else if (format[(env->curr)] == '0')
@@ -23,7 +35,7 @@ void	parse_flags(t_env *env, const char *restrict format, char found, int esc)
 			set_h(env, format);
 		else
 		{
-			found = 0;
+			fnd = 0;
 			esc++;
 		}
 	}

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yolabi <yolabi@student.42.us.org>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/10 22:15:17 by yolabi            #+#    #+#             */
+/*   Updated: 2017/08/10 22:17:08 by yolabi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdarg.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -35,7 +46,8 @@ int					ft_iswhitespace(char c);
 void				find_width(t_env *env, const char *restrict format);
 void				find_precision(t_env *env, const char *restrict format);
 char				*ft_itoa_base(long long value, int base, int upper_case);
-char				*ft_itoa_ubase(unsigned long long value, long base, int upper_case);
+char				*ft_itoa_ubase(unsigned long long value, long base, \
+					int upper_case);
 void				reset_env(t_env *env);
 void				init_env(t_env *env);
 void				print_percent(t_env *env, const char *restrict format);
@@ -47,8 +59,10 @@ void				print_number_padding(t_env *env, char *str);
 void				print_number_string(t_env *env, char *str);
 void				print_minus(t_env *env, char *str);
 void				print_numbers(t_env *env, char *str);
-void				print_nums(t_env *env, va_list ap, int base, int upper_case);
-void				print_u_nums(t_env *env, va_list ap, int base, int upper_case);
+void				print_nums(t_env *env, va_list ap, int base, \
+					int upper_case);
+void				print_u_nums(t_env *env, va_list ap, int base, \
+					int upper_case);
 void				print_p(t_env *env, va_list ap);
 void				print_d(t_env *env, va_list ap);
 void				print_cap_d(t_env *env, va_list ap);
@@ -63,8 +77,10 @@ void				set_plus(t_env *env);
 void				set_space(t_env *env);
 void				set_h(t_env *env, const char *restrict format);
 void				set_l(t_env *env, const char *restrict format);
-void				parse_flags(t_env *env, const char *restrict format, char found, int esc);
-void				parse_conversion(t_env *env, const char *restrict format, va_list ap);
+void				parse_flags(t_env *env, const char *restrict format, \
+					char fnd, int esc);
+void				parse_conversion(t_env *env, const char *restrict format, \
+					va_list ap);
 int					ft_printf(const char *restrict format, ...);
 
 #endif
