@@ -258,22 +258,16 @@ void	print_number_string(t_env *env, char *str)
 	unsigned int	precision;
 
 	precision = (env->precision);
-	if (precision)
+	while (precision - ft_strlen(str))
 	{
-		while (precision)
-		{
-			write(1, str++, 1);
-			(env->bytes)++;
-			precision--;
-		}
+		write(1, "0", 1);
+		(env->bytes)++;
+		precision--;
 	}
-	else
+	while (*str)
 	{
-		while (*str)
-		{
-			write(1, str++, 1);
-			(env->bytes)++;
-		}
+		write(1, str++, 1);
+		(env->bytes)++;
 	}
 }
 
