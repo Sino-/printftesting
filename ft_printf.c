@@ -250,14 +250,14 @@ void	print_number_padding(t_env *env, char *str)
 			(env->bytes)++;
 		}
  	}
- 	else if ((env->zero) && (ft_strlen(str) - env->precision) < env->width)
-	{
-		while ((env->width)-- > ft_strlen(str))
-		{
-			write(1, " ", 1);
-			(env->bytes)++;
-		}
- 	}
+ // 	else if ((env->zero) && (ft_strlen(str) - env->precision) < env->width)
+	// {
+	// 	while ((env->width)-- > ft_strlen(str))
+	// 	{
+	// 		write(1, " ", 1);
+	// 		(env->bytes)++;
+	// 	}
+ // 	}
 	else
 	{
 		//printf("\nWIDTH |%d| || precision |%d| || ft_strlen |%d|\n", (env->width),(env->precision), ft_strlen(str));
