@@ -39,6 +39,7 @@ typedef struct		s_env
 	unsigned int	z			:1;
 }					t_env;
 
+/*
 size_t				ft_strlen(char const *str);
 char				*ft_strdup(char const *s);
 int					ft_isdigit(int ascii_char);
@@ -82,5 +83,5 @@ void				parse_flags(t_env *env, const char *restrict format, \
 void				parse_conversion(t_env *env, const char *restrict format, \
 					va_list ap);
 int					ft_printf(const char *restrict format, ...);
-
+*/
 #endif
