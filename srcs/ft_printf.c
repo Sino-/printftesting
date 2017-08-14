@@ -176,7 +176,7 @@ void	printc(t_env *env, va_list ap)
 	char c;
 
 	c = va_arg(ap, int);
-	write(1, &c, 1);
+	//write(1, &c, 1);
 	(env->bytes)++;
 	(env->curr)++;
 }
@@ -243,8 +243,8 @@ void	prints(t_env *env, va_list ap)
 	}
 	else
 	{
-		write(1, "(null)", 5);
-		(env->bytes)+= 5;	
+		write(1, "(null)", 6);
+		(env->bytes)+= 6;	
 	}
 }
 
