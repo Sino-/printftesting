@@ -15,7 +15,7 @@ CC		=	gcc
 CFLAGS	=	-c -Wall -Wextra -Werror
 SRCDIR	=	srcs/
 INCS	=	-I./includes/
-LIST	=	all
+LIST	=	ft_printf
 # LIST	=	env_control env_utils find_width_and_precision ft_printf 		\
 # 			itoa_and_uitoa_base libft_utils parse_conversion parse_flags 	\
 # 			print_d print_formatted_numbers print_formatted_strings 		\
