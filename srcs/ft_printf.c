@@ -243,8 +243,8 @@ void	prints(t_env *env, va_list ap)
 	}
 	else
 	{
-		write(1, "(null)", 6);
-		(env->bytes)+= 6;	
+		write(1, "(null)", 5);
+		(env->bytes)+= 5;	
 	}
 }
 
