@@ -229,17 +229,22 @@ void	prints(t_env *env, va_list ap)
 	str = va_arg(ap, char *);
 	if (str)
 	{
-	if (env->minus)
-	{
-		print_string(env, str);
-		print_padding(env, str, ' ');
+		if (env->minus)
+		{
+			print_string(env, str);
+			print_padding(env, str, ' ');
+		}
+		else
+		{
+			print_padding(env, str, ' ');
+			print_string(env, str);
+		}
+		(env->curr)++;
 	}
 	else
 	{
-		print_padding(env, str, ' ');
-		print_string(env, str);
-	}
-	(env->curr)++;
+		write(1, "(null)", 6);
+		(env->bytes)+= 6;	
 	}
 }
 
