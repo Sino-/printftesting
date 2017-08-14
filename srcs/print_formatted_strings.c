@@ -68,11 +68,11 @@ void	print_s(t_env *env, va_list ap)
 			print_padding(env, str, ' ');
 			print_string(env, str);
 		}
-		(env->curr)++;
 	}
 	else
 	{
-		write(1, "(null)\0", 7);
-		(env->bytes) += 7;
+		write(1, "(null)", 6);
+		(env->bytes) += 6;
 	}
+	(env->curr)++;
 }
