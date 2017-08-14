@@ -56,15 +56,23 @@ void	print_s(t_env *env, va_list ap)
 	char	*str;
 
 	str = va_arg(ap, char *);
-	if (env->minus)
+	if (str)
 	{
-		print_string(env, str);
-		print_padding(env, str, ' ');
+		if (env->minus)
+		{
+			print_string(env, str);
+			print_padding(env, str, ' ');
+		}
+		else
+		{
+			print_padding(env, str, ' ');
+			print_string(env, str);
+		}
+		(env->curr)++;
 	}
 	else
 	{
-		print_padding(env, str, ' ');
-		print_string(env, str);
+		write(1, "(null)", 6);
+		(env->bytes) += 6;
 	}
-	(env->curr)++;
 }
