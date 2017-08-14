@@ -227,6 +227,8 @@ void	prints(t_env *env, va_list ap)
 	char	*str;
 
 	str = va_arg(ap, char *);
+	if (str)
+	{
 	if (env->minus)
 	{
 		print_string(env, str);
@@ -238,6 +240,7 @@ void	prints(t_env *env, va_list ap)
 		print_string(env, str);
 	}
 	(env->curr)++;
+	}
 }
 
 void	print_number_padding(t_env *env, char *str)
