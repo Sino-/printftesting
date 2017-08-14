@@ -72,6 +72,7 @@ void	print_s(t_env *env, va_list ap)
 	}
 	else
 	{
+		str = NULL;
 		write(1, "(null)", 6);
 		(env->bytes) += 6;
 	}
