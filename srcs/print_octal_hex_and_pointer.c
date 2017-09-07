@@ -6,7 +6,7 @@
 /*   By: yolabi <yolabi@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/10 22:13:11 by yolabi            #+#    #+#             */
-/*   Updated: 2017/08/10 22:13:13 by yolabi           ###   ########.fr       */
+/*   Updated: 2017/09/06 19:02:30 by yolabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	print_cap_o(t_env *env, va_list ap)
 	char		*str;
 
 	d = va_arg(ap, uintmax_t);
-	print_u_nums(env, ap, 8, 0);
 	str = ft_itoa_ubase(d, 8, 0);
 	if (str[0] != '0')
 		env->bytes += env->octothorpe == 1 ? write(1, "0", 1) : 0;
